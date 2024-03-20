@@ -100,4 +100,4 @@ export type { Colors, IconSize };
 
 export { darkTheme, dimensions, lightTheme };
 
-export default theme;
+export { theme };

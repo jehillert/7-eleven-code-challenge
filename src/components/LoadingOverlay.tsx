@@ -71,4 +71,4 @@ const OverlayWrapper = {
   FullScreen: FullScreenWrapper,
 };
 
-export default LoadingOverlay;
+export { LoadingOverlay };

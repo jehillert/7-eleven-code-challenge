@@ -6,10 +6,10 @@ import { ThemeProvider, styled } from 'styled-components/native';
 import PokemonGrid from './components/PokemonGrid';
 import {
   fetchPokemonAsyncThunk,
-  selectPokemon,
   useAppDispatch,
   useAppSelector,
 } from './store';
+import { selectIsLoading } from './store/slices/globalUiSlice';
 import { useAppTheme } from './theme/useAppTheme';
 
 const AppSafeArea = styled(SafeAreaView)`
@@ -20,12 +20,11 @@ const AppSafeArea = styled(SafeAreaView)`
 let AppCore = () => {
   const dispatch = useAppDispatch();
   const { appTheme, barStyle } = useAppTheme();
-
-  const pokemon = useAppSelector(selectPokemon);
+  const isLoading = useAppSelector(selectIsLoading);
 
   useEffect(() => {
-    console.log(JSON.stringify(pokemon, undefined, 2));
-  }, [pokemon]);
+    dispatch(fetchPokemonAsyncThunk(10));
+  }, []);
 
   return (
     <ThemeProvider theme={appTheme}>

@@ -20,7 +20,9 @@ type Props = {};
 const PokemonGridView = ({}: Props) => {
   const pokemon = useAppSelector(selectPokemon);
 
-  const gridContent = pokemon.map(p => <PokemonGridItem pokemonId={p.id} />);
+  const gridContent = pokemon.map(({ id }) => (
+    <PokemonGridItem key={id} pokemonId={id} />
+  ));
 
   return (
     <ScrollView contentContainerStyle={{ flex: 1 }}>

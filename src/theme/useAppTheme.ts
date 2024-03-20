@@ -1,6 +1,6 @@
 import { StatusBarStyle } from 'react-native';
 import { selectTheme, useAppSelector } from '../store';
-import themes from './theme';
+import { theme as themes } from './theme';
 
 const useAppTheme = () => {
   const theme = useAppSelector(selectTheme);

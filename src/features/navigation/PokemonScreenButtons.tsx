@@ -19,23 +19,42 @@ const ButtonView = styled.View`
 const PokemonScreenButtons = ({ navigation }: PokemonScreenProps) => {
   const { colors } = useTheme();
   const dispatch = useAppDispatch();
-  const handlePressCart = () => navigation.navigate('Checkout');
-  const handlePressTheme = () => dispatch(toggleTheme());
   const cartIds = useAppSelector(selectCartIds);
   const cartDisabled = !cartIds.length;
 
+  const handlePressCart = () => navigation.navigate('Checkout');
+  const handlePressTheme = () => dispatch(toggleTheme());
+  const handleCreateError = () => {
+    throw new Error('A test error.');
+  };
+
+  const errorButton = (
+    <TouchableOpacity onPress={handleCreateError}>
+      <BaseIcon name="alert-circle-outline" color={colors.text} size="medium" />
+    </TouchableOpacity>
+  );
+
+  const themeToggleButton = (
+    <TouchableOpacity onPress={handlePressTheme}>
+      <BaseIcon name="brightness-6" color={colors.text} size="medium" />
+    </TouchableOpacity>
+  );
+
+  const checkoutButton = (
+    <TouchableOpacity onPress={handlePressCart} disabled={cartDisabled}>
+      <BaseIcon
+        name="cart-outline"
+        color={cartDisabled ? colors.textDisabled : colors.accent}
+        size="medium"
+      />
+    </TouchableOpacity>
+  );
+
   return (
     <ButtonView>
-      <TouchableOpacity onPress={handlePressTheme}>
-        <BaseIcon name="brightness-6" color={colors.text} size="medium" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handlePressCart} disabled={cartDisabled}>
-        <BaseIcon
-          name="cart-outline"
-          color={cartDisabled ? colors.textDisabled : colors.accent}
-          size="medium"
-        />
-      </TouchableOpacity>
+      {errorButton}
+      {themeToggleButton}
+      {checkoutButton}
     </ButtonView>
   );
 };

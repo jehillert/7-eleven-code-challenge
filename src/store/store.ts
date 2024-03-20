@@ -1,5 +1,7 @@
 import { ThunkAction, configureStore } from '@reduxjs/toolkit';
 import { Middleware, UnknownAction } from 'redux';
+import { SENTRY_ENABLED } from '../appConfig';
+import { Sentry } from '../integrations';
 import { rootReducer } from './root-reducer';
 
 const logger: Middleware = store => next => action => {
@@ -25,6 +27,10 @@ const store = configureStore({
     getDefaultMiddleware({ immutableCheck: false, serializableCheck: false })
       .concat(__DEV__ ? [crashReporter] : [])
       .concat(__DEV__ ? [logger] : []),
+  enhancers: getDefaultEnhancers =>
+    getDefaultEnhancers({
+      autoBatch: { type: 'tick' },
+    }).concat(SENTRY_ENABLED ? Sentry.createReduxEnhancer() : []),
   devTools: __DEV__,
 });
 

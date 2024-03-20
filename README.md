@@ -32,7 +32,10 @@ https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/b56ce8a1-1f
 
 
 ### Bonus Story: Bonus Story: Dynamic Pricing Based on Weight
-This is shown in previous two videos.
+
+
+https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/c228ebbf-18d0-43b1-9d5d-1da286e1a689
+
 
 ### Bonus Story: Bonus Story: Optimize Performance and User Experience
 I did not set out to do this explicitly, but I did do some optimizations as I went along.

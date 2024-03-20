@@ -25,10 +25,6 @@ let AppCore = () => {
   const s = useAppSelector(store.getState);
 
   useEffect(() => {
-    console.log(JSON.stringify(s, undefined, 2));
-  }, [s.pokemon.ids.length]);
-
-  useEffect(() => {
     !isPokemon && dispatch(fetchPokemonAsyncThunk());
   }, []);
 

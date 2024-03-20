@@ -1,17 +1,31 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useTheme } from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { BaseIcon } from '../../components';
+import { toggleTheme, useAppDispatch } from '../../store';
 import { PokemonScreenProps } from './navigationTypes';
 
-const PokemonScreenButtons = (props: PokemonScreenProps) => {
+const ButtonView = styled.View`
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-right: -4px;
+`;
+
+const PokemonScreenButtons = ({ navigation }: PokemonScreenProps) => {
   const { colors } = useTheme();
-  const handlePressCart = () => {};
+  const dispatch = useAppDispatch();
+  const handlePressCart = () => navigation.navigate('Cart');
+  const handlePressTheme = () => dispatch(toggleTheme());
 
   return (
-    <TouchableOpacity onPress={handlePressCart}>
-      <BaseIcon name="cart-outline" color={colors.text} size="medium" />
-    </TouchableOpacity>
+    <ButtonView>
+      <TouchableOpacity onPress={handlePressTheme}>
+        <BaseIcon name="circle-half-full" color={colors.text} size="medium" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handlePressCart}>
+        <BaseIcon name="cart-outline" color={colors.text} size="medium" />
+      </TouchableOpacity>
+    </ButtonView>
   );
 };
 

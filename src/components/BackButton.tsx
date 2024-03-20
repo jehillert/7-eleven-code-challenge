@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { HeaderBackButtonProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import React from 'react';
 import { ColorValue, PressableProps, StyleProp, ViewStyle } from 'react-native';
@@ -26,7 +26,6 @@ const OffsetPressable = styled.Pressable`
 
 type BackButtonProps = {
   color?: ColorValue;
-  onPress?: (() => void) | (() => Promise<void>);
   isFab?: boolean;
   size?: number;
   title?: string;
@@ -35,15 +34,9 @@ type BackButtonProps = {
 
 type Props = BackButtonProps & PressableProps & Partial<HeaderBackButtonProps>;
 
-const BackButton = ({
-  color,
-  isFab = false,
-  onPress,
-  style,
-  title,
-  ...rest
-}: Props) => {
+const BackButton = ({ color, isFab = false, style, title, ...rest }: Props) => {
   const bbIconName = 'chevron-left';
+  const navigation = useNavigation();
   const { colors, dimensions } = useTheme();
   const { name: currentScreen } = useRoute();
   const titleTxt =
@@ -54,7 +47,7 @@ const BackButton = ({
       : '';
   const showTitle = !!title || !!currentScreen;
 
-  const handlePress = () => {};
+  const handlePress = () => navigation.navigate('Pokemon');
 
   return (
     <HeaderContainer>

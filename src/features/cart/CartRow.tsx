@@ -51,7 +51,8 @@ const CartRow = ({ pokemonId }: Props) => {
     selectPokemonById(pokemonId),
   );
 
-  const subTotal = `$${weight ? cartCount * weight : '-'} x ${cartCount}`;
+  // fix minor issue
+  const subTotal = `${cartCount} x $${weight ?? 'n/a'}`;
 
   return (
     <Row>

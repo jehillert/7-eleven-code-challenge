@@ -1,3 +1,4 @@
+export * from './pokemonSelectors';
 export * from './pokemonSlice';
 export * from './settingsSlice';
 

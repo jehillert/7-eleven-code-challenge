@@ -1,5 +1,5 @@
-import { Middleware, UnknownAction } from 'redux';
 import { ThunkAction, configureStore } from '@reduxjs/toolkit';
+import { Middleware, UnknownAction } from 'redux';
 import { rootReducer } from './root-reducer';
 
 const logger: Middleware = store => next => action => {
@@ -48,6 +48,6 @@ type AppThunk<ReturnType = void> = ThunkAction<
 
 type AsyncAppThunkWReturn<SomeReturnType> = AppThunk<Promise<SomeReturnType>>;
 
-export type { AppDispatch, RootState, AppThunk, AsyncAppThunkWReturn };
+export type { AppDispatch, AppThunk, AsyncAppThunkWReturn, RootState };
 
 export { store };

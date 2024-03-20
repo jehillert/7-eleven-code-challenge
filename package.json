@@ -50,6 +50,7 @@
     "clean-android": "./clean-android.sh",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "rnd": "adb -s 33271FDH300152 reverse tcp:8081 tcp:8081",
     "scrcpy": "scrcpy",
     "scrcpy-tcpip": "scrcpy --tcpip",
     "start": "react-native start",

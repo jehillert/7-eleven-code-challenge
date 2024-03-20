@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components/native';
 import { curriedBackButton } from '../../components';
 import { toTitleCase } from '../../utils';
+import { CartScreen } from '../cart';
 import PokemonScreen from '../pokemon/PokemonScreen';
 import { curriedPokemonScreenButtons } from './PokemonScreenButtons';
 import {
@@ -59,7 +60,7 @@ const StackNavigator = () => {
 
         <Stack.Screen
           name={'Cart'}
-          component={() => <></>}
+          component={CartScreen}
           options={props => ({
             headerBackVisible: false,
             headerLeft: curriedBackButton({

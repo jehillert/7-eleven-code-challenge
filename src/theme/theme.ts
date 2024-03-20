@@ -60,7 +60,7 @@ const darkColors: Colors = {
   onPrimary: '#ffffff',
   statusBar: '#434343',
   text: '#e5e5e7',
-  textDisabled: '#a8a7a7',
+  textDisabled: '#6c6a6a',
   textSecondary: '#d6d6d6',
 };
 

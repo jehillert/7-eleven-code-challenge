@@ -35,7 +35,7 @@ const PokemonGridItem = ({ pokemonId }: Props) => {
         onError={err => console.log(err)}
       />
       <PokemonNameText>{name}</PokemonNameText>
-      <Incrementer id={pokemonId} position="middle" />
+      <Incrementer id={pokemonId} countPosition="middle" invertButtons />
     </GridItemView>
   );
 };

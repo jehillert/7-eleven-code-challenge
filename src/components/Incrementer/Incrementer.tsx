@@ -15,37 +15,66 @@ const ButtonGroupView = styled.View`
 
 const CountContainer = styled.View``;
 
+const TextContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
 const CountText = styled.Text`
-  ${({ theme }) => theme.absoluteFill};
+  position: absolute;
+  left: 0px;
+  right: 0px;
   ${({ theme }) => theme.typography.badge};
   color: ${({ theme }) => theme.colors.black};
+  line-height: 12px;
   text-align: center;
 `;
 
-type IProps = {
+type Props = {
   id: string;
-  position: 'beginning' | 'middle' | 'end';
+  countPosition: 'beginning' | 'middle' | 'end';
+  invertButtons?: boolean;
   size?: IconSize;
 };
 
-const Incrementer = ({ id, position = 'middle', size }: IProps) => {
+const Incrementer = ({
+  id,
+  countPosition = 'middle',
+  invertButtons = false,
+  size,
+}: Props) => {
   const { colors } = useTheme();
   const pokemon = useAppSelector(selectPokemonById(id));
   const { cartCount } = pokemon;
   const CountBox = (
     <CountContainer>
-      <BaseIcon name="checkbox-blank" color={colors.white} padding="0px" />
-      <CountText>{cartCount}</CountText>
+      <TextContainer>
+        <BaseIcon
+          name="checkbox-blank"
+          color={colors.white}
+          padding="0px"
+          size={size}
+        />
+        <CountText>{cartCount}</CountText>
+      </TextContainer>
     </CountContainer>
   );
 
+  const plusButton = <IncrementButton id={id} variant="+" size={size} />;
+
+  const minusButton = <IncrementButton id={id} variant="-" size={size} />;
+
+  const Button1 = invertButtons ? minusButton : plusButton;
+
+  const Button2 = invertButtons ? plusButton : minusButton;
+
   return (
     <ButtonGroupView>
-      {position === 'beginning' && CountBox}
-      <IncrementButton id={id} variant="+" />
-      {position === 'middle' && CountBox}
-      <IncrementButton id={id} variant="-" />
-      {position === 'end' && CountBox}
+      {countPosition === 'beginning' && CountBox}
+      {Button1}
+      {countPosition === 'middle' && CountBox}
+      {Button2}
+      {countPosition === 'end' && CountBox}
     </ButtonGroupView>
   );
 };

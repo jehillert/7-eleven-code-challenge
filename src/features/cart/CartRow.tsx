@@ -55,9 +55,9 @@ const CartRow = ({ pokemonId, iconSize = 'medium-small' }: Props) => {
         />
         <PokemonNameText>{name}</PokemonNameText>
       </LeftColumn>
-      <Incrementer id={pokemonId} position="beginning" />
+      <Incrementer id={pokemonId} countPosition="beginning" size="medium" />
       <TouchableOpacity onPress={handlePressTrash}>
-        <BaseIcon name="trash-can" color={colors.text} size="medium-small" />
+        <BaseIcon name="trash-can" color={colors.text} size="medium" />
       </TouchableOpacity>
     </Row>
   );

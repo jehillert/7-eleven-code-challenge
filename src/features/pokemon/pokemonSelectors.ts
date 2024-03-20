@@ -49,9 +49,9 @@ const selectCartIds = createSelector(selectPokemon, pokemon => {
 const selectTotalCost = createSelector(
   selectPokemon,
   pokemon =>
-    pokemon.reduce((accum, { cartCount, data }, index) => {
-      if (data !== null) {
-        return accum + data.weight * cartCount;
+    pokemon.reduce((accum, { cartCount, weight }, index) => {
+      if (weight !== null) {
+        return accum + weight * cartCount;
       }
       return accum;
     }, 0) ?? 0,

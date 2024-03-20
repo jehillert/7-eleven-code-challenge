@@ -8,6 +8,7 @@ import StackNavigator from './features/navigation/StackNavigator';
 import {
   fetchPokemonAsyncThunk,
   selectIsPokemon,
+  store,
   useAppDispatch,
   useAppSelector,
 } from './store';
@@ -21,6 +22,11 @@ let AppCore = () => {
   const dispatch = useAppDispatch();
   const { appTheme, barStyle } = useAppTheme();
   const isPokemon = useAppSelector(selectIsPokemon);
+  const s = useAppSelector(store.getState);
+
+  useEffect(() => {
+    console.log(JSON.stringify(s, undefined, 2));
+  }, [s.pokemon.ids.length]);
 
   useEffect(() => {
     !isPokemon && dispatch(fetchPokemonAsyncThunk());

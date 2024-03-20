@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { selectCartIds, selectTotalCost, useAppSelector } from '../../store';
-import { AppScreenProp } from '../navigation/navigationTypes';
 import CartRow from './CartRow';
 
 const ScreenContainer = styled.View`
@@ -25,7 +24,7 @@ const TotalCostText = styled.Text`
   font-size: 22px;
 `;
 
-const CartScreen = (props: AppScreenProp) => {
+const CartScreen = () => {
   const cartIds = useAppSelector(selectCartIds);
   const totalCost = useAppSelector(selectTotalCost);
   const renderItem: ListRenderItem<string> = useCallback(({ item }) => {

@@ -32,7 +32,11 @@ const selectTheme = (state: RootState) => {
 };
 
 export { selectTheme };
+
 export type { ThemeId };
+
 export const { setThemeId, toggleTheme } = settingsSlice.actions;
+
 export const { selectThemeId } = settingsSlice.selectors;
+
 export default settingsSlice.reducer;

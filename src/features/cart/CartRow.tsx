@@ -47,12 +47,11 @@ type Props = {
 const CartRow = ({ pokemonId }: Props) => {
   const iconSize = 'medium-small';
   const pokemonSize = 70;
-  const { name, imageUrl, cartCount, data } = useAppSelector(
+  const { name, imageUrl, cartCount, weight } = useAppSelector(
     selectPokemonById(pokemonId),
   );
-  const weight = data?.weight ?? 0;
-  const cost = cartCount * weight;
-  const subTotal = `$${cost} x ${cartCount}`;
+
+  const subTotal = `$${weight ? cartCount * weight : '-'} x ${cartCount}`;
 
   return (
     <Row>

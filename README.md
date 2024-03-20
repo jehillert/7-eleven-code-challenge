@@ -1,3 +1,288 @@
+# 7-eleven challenge notes
+
+### Stories 1-3: The Pokemon Picker
+The cart page mentioned "a summary view of the cart and selected Pokemon details".  I assumed the details just referred to the name, picture, and quanity. But I was not sure, and that's the reason I kept all of the pokemon details in state.  Normally, I would have kept only the details the app uses to avoid having a massive object in redux.
+Notes:
+- The app retrieves the data immediately when it is open, but there is also a pull-to-refresh.  I used Promise.allSettled (instead of Promise.all, which will stop if one fails) in combination with createAsynThunk;
+- I use redux toolkits createSlice, primarily for reducers and actions. I manage request state using createAsyncThunk and the builder patter (addCase, matchCase)
+- Src folder is 1600-1700 lines of code (`cloc --autoconf src`).  Coding time was about 14 hours (see [commit historoy](https://github.com/jehillert/7-eleven-code-challenge/commits/main/)). A couple hundred lines I pulled from my personal projects, like typography for theming.
+- The commit messages are ugly. I do not do that when I am working on a team;
+
+[Demo Video]()
+
+### Not-A-Bonus Story: Theming
+I integrated a light and dark theme through styled-components.  It is not the simplest way to theme, just a decent one if no UI libraries are being used and you want more control than React Navigation provides.
+
+[Demo Video]()
+
+### Bonus Story: Bonus Story: Dynamic Pricing Based on Weight
+This is shown in previous two videos.
+
+### Bonus Story: Bonus Story: Optimize Performance and User Experience
+I did not set out to do this explicitly, but I did do some optimizations as I went along.
+- memoization:
+  with React: I did not do much here, other than wrap the renderItem for the flatlist on the checkout page.
+  with redux-toolkit: I use createSelector every time I have derived data that goes just being a direct property on the slice.  Some of them may be unnecessary.
+- no work on caching, but the api call is nested in a toplevel use-effect that only calls on mount (empty dependency array), I implmented pull-to refresh on the scrollview.
+
+### Bonus Story: Show the Ability to Log
+I implemented Sentry basic logging, but with the following additional functionality:
+- Sentry takes a screenshot of the UI where the error occurred;
+- Sentry middleware provides all of the actions leading up to an error in breadcrumbs;
+
+I did not have time to implement environment variables, but this code can be run in the following branch with a valid SENTRY_DSN.
+
+Branch
+https://github.com/jehillert/7-eleven-code-challenge/tree/sentry-integration
+
+To run
+Create a file `src/appConfig` with the following content:
+```tsx
+export const SENTRY_ENDPOINT =
+  'HTTPS://YOUR_VALID_SENTRY_DSN_HERE';
+export const APP_BUILD = '1';
+export const APP_VERSION = '0.0';
+export const SENTRY_ENABLED = 'true';
+
+```
+
+### Bonus Story: Create an API using RTK Query and Entity Adapter
+I did not set out to do this explicitly, but these are things I did that overlap:
+- Pokemon are all mostly managed by createEntityAdapter.  I made the following entity:
+```tsx
+export type PokemonBaseEntity = {
+  name: string; // pokemon name
+  weight?: number | null; // pulled form data, if api call to retrieve particular pokemon data is successful.
+  imageUrl?: string; // same as line above
+  error?: string; // If an error occurs when retrieving a particular pokemon, the serialized error is recorded here.
+  url: string; // pokemon data url, probably no reason to store this given requirements
+};
+- I did not use RTK Query, but I did use `createAsyncThunk()` and took advantage of the functionality it provides for tracking progress of the api call (e.g., 'idle' | 'pending' | 'succeeded' | 'failed'), recording errors, showing a loader.
+
+
+
+```
+
+### Additional Notes
+#### Printout of State Tree
+This is what my state tree looks like after fetching data.
+
+```json
+{
+  "pokemon": {
+    "ids": [
+      "_UwoFodOlR_XxNUsqtkrg",
+      "pjsqdXbqW_UHjA4Sawq9x",
+      "c5-pK1cqnidUb0NDn4MpI",
+      "r_NuoZ1npfKtFzGpei4-Y",
+      "BTWAjOmIkb4j7oE4wEiVY",
+      "RIrPevuojo5bE82tmZOPQ",
+      "Mb4vWCL4EZZ_8rO1TZCLs",
+      "dDmsGFaxT6FpbvNAC4Ep2",
+      "QjkOGmFfJo01G1iJ89MEH",
+      "5DQWjX1gpdEHcZQgpNWRu",
+      "F1-ESS5rtBJ1h62tZA810",
+      "iYA8HIkgHFjtsUonTD2PG",
+      "xUFYEyCNQkQFzbEXsNZ0Q",
+      "Uio6-FbSBMuS1QP1M2c38",
+      "MUQMAKm6e90_sFLen5566",
+      "bkfCIKFIiotNN0p1HF30p",
+      "gANUdKH3hg4mWKgoX3bcp",
+      "ypre_tp3KZ_W0JTdYuxKN",
+      "BDXfAKkwkT_diE-C4LXCB",
+      "fr18zziI_yeXhM9tdzbH6"
+    ],
+    "entities": {
+      "_UwoFodOlR_XxNUsqtkrg": {
+        "name": "bulbasaur",
+        "url": "https://pokeapi.co/api/v2/pokemon/1/",
+        "cartCount": 0,
+        "id": "_UwoFodOlR_XxNUsqtkrg",
+        "weight": 69,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+        "error": ""
+      },
+      "pjsqdXbqW_UHjA4Sawq9x": {
+        "name": "ivysaur",
+        "url": "https://pokeapi.co/api/v2/pokemon/2/",
+        "cartCount": 0,
+        "id": "pjsqdXbqW_UHjA4Sawq9x",
+        "weight": 130,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+        "error": ""
+      },
+      "c5-pK1cqnidUb0NDn4MpI": {
+        "name": "venusaur",
+        "url": "https://pokeapi.co/api/v2/pokemon/3/",
+        "cartCount": 0,
+        "id": "c5-pK1cqnidUb0NDn4MpI",
+        "weight": 1000,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+        "error": ""
+      },
+      "r_NuoZ1npfKtFzGpei4-Y": {
+        "name": "charmander",
+        "url": "https://pokeapi.co/api/v2/pokemon/4/",
+        "cartCount": 0,
+        "id": "r_NuoZ1npfKtFzGpei4-Y",
+        "weight": 85,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+        "error": ""
+      },
+      "BTWAjOmIkb4j7oE4wEiVY": {
+        "name": "charmeleon",
+        "url": "https://pokeapi.co/api/v2/pokemon/5/",
+        "cartCount": 0,
+        "id": "BTWAjOmIkb4j7oE4wEiVY",
+        "weight": 190,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+        "error": ""
+      },
+      "RIrPevuojo5bE82tmZOPQ": {
+        "name": "charizard",
+        "url": "https://pokeapi.co/api/v2/pokemon/6/",
+        "cartCount": 0,
+        "id": "RIrPevuojo5bE82tmZOPQ",
+        "weight": 905,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+        "error": ""
+      },
+      "Mb4vWCL4EZZ_8rO1TZCLs": {
+        "name": "squirtle",
+        "url": "https://pokeapi.co/api/v2/pokemon/7/",
+        "cartCount": 0,
+        "id": "Mb4vWCL4EZZ_8rO1TZCLs",
+        "weight": 90,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+        "error": ""
+      },
+      "dDmsGFaxT6FpbvNAC4Ep2": {
+        "name": "wartortle",
+        "url": "https://pokeapi.co/api/v2/pokemon/8/",
+        "cartCount": 0,
+        "id": "dDmsGFaxT6FpbvNAC4Ep2",
+        "weight": 225,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+        "error": ""
+      },
+      "QjkOGmFfJo01G1iJ89MEH": {
+        "name": "blastoise",
+        "url": "https://pokeapi.co/api/v2/pokemon/9/",
+        "cartCount": 0,
+        "id": "QjkOGmFfJo01G1iJ89MEH",
+        "weight": 855,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+        "error": ""
+      },
+      "5DQWjX1gpdEHcZQgpNWRu": {
+        "name": "caterpie",
+        "url": "https://pokeapi.co/api/v2/pokemon/10/",
+        "cartCount": 0,
+        "id": "5DQWjX1gpdEHcZQgpNWRu",
+        "weight": 29,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
+        "error": ""
+      },
+      "F1-ESS5rtBJ1h62tZA810": {
+        "name": "metapod",
+        "url": "https://pokeapi.co/api/v2/pokemon/11/",
+        "cartCount": 0,
+        "id": "F1-ESS5rtBJ1h62tZA810",
+        "weight": 99,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png",
+        "error": ""
+      },
+      "iYA8HIkgHFjtsUonTD2PG": {
+        "name": "butterfree",
+        "url": "https://pokeapi.co/api/v2/pokemon/12/",
+        "cartCount": 0,
+        "id": "iYA8HIkgHFjtsUonTD2PG",
+        "weight": 320,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png",
+        "error": ""
+      },
+      "xUFYEyCNQkQFzbEXsNZ0Q": {
+        "name": "weedle",
+        "url": "https://pokeapi.co/api/v2/pokemon/13/",
+        "cartCount": 0,
+        "id": "xUFYEyCNQkQFzbEXsNZ0Q",
+        "weight": 32,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png",
+        "error": ""
+      },
+      "Uio6-FbSBMuS1QP1M2c38": {
+        "name": "kakuna",
+        "url": "https://pokeapi.co/api/v2/pokemon/14/",
+        "cartCount": 0,
+        "id": "Uio6-FbSBMuS1QP1M2c38",
+        "weight": 100,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
+        "error": ""
+      },
+      "MUQMAKm6e90_sFLen5566": {
+        "name": "beedrill",
+        "url": "https://pokeapi.co/api/v2/pokemon/15/",
+        "cartCount": 0,
+        "id": "MUQMAKm6e90_sFLen5566",
+        "weight": 295,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+        "error": ""
+      },
+      "bkfCIKFIiotNN0p1HF30p": {
+        "name": "pidgey",
+        "url": "https://pokeapi.co/api/v2/pokemon/16/",
+        "cartCount": 0,
+        "id": "bkfCIKFIiotNN0p1HF30p",
+        "weight": 18,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
+        "error": ""
+      },
+      "gANUdKH3hg4mWKgoX3bcp": {
+        "name": "pidgeotto",
+        "url": "https://pokeapi.co/api/v2/pokemon/17/",
+        "cartCount": 0,
+        "id": "gANUdKH3hg4mWKgoX3bcp",
+        "weight": 300,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png",
+        "error": ""
+      },
+      "ypre_tp3KZ_W0JTdYuxKN": {
+        "name": "pidgeot",
+        "url": "https://pokeapi.co/api/v2/pokemon/18/",
+        "cartCount": 0,
+        "id": "ypre_tp3KZ_W0JTdYuxKN",
+        "weight": 395,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png",
+        "error": ""
+      },
+      "BDXfAKkwkT_diE-C4LXCB": {
+        "name": "rattata",
+        "url": "https://pokeapi.co/api/v2/pokemon/19/",
+        "cartCount": 0,
+        "id": "BDXfAKkwkT_diE-C4LXCB",
+        "weight": 35,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
+        "error": ""
+      },
+      "fr18zziI_yeXhM9tdzbH6": {
+        "name": "raticate",
+        "url": "https://pokeapi.co/api/v2/pokemon/20/",
+        "cartCount": 0,
+        "id": "fr18zziI_yeXhM9tdzbH6",
+        "weight": 185,
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png",
+        "error": ""
+      }
+    },
+    "loading": "idle",
+    "requestError": null
+  },
+  "settings": {
+    "themeId": "system"
+  }
+```
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started

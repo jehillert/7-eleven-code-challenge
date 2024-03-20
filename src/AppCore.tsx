@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { ThemeProvider, styled } from 'styled-components/native';
 import {
-  fetchPokemonListThunk,
+  fetchPokemonAsyncThunk,
   selectPokemon,
   useAppDispatch,
   useAppSelector,
@@ -14,7 +14,7 @@ import { useAppTheme } from './theme/useAppTheme';
 
 const AppSafeArea = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.statusBar};
+  background-color: #3e3d3d;
 `;
 
 let AppCore = () => {
@@ -47,11 +47,11 @@ let AppCore = () => {
           style={backgroundStyle}>
           <Button
             title="Fetch Pokemon"
-            onPress={() => dispatch(fetchPokemonListThunk(10))}
+            onPress={() => dispatch(fetchPokemonAsyncThunk(10))}
           />
           <View
             style={{
-              backgroundColor: isDark ? Colors.black : Colors.white,
+              backgroundColor: isDark ? '#000000' : '#ffffff',
             }}
           />
         </ScrollView>

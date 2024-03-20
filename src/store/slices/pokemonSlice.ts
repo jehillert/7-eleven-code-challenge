@@ -1,11 +1,13 @@
 import {
+  createAsyncThunk,
   createEntityAdapter,
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { api } from '../../api';
 import { PokemonEntity, PokemonListItem } from '../../types';
-import { AppThunk } from '../store';
+
+type LoadingState = 'idle' | 'pending' | 'succeeded' | 'failed';
 
 const pokemonAdapter = createEntityAdapter({
   selectId: (pokemon: PokemonListItem) => pokemon.name,
@@ -13,7 +15,10 @@ const pokemonAdapter = createEntityAdapter({
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
-  initialState: pokemonAdapter.getInitialState({ activePokemonId: '' }),
+  initialState: pokemonAdapter.getInitialState({
+    activePokemonId: '',
+    loading: 'idle' as LoadingState,
+  }),
   reducers: {
     addManyPokemon: pokemonAdapter.addMany,
     setActivePokemonId(state, { payload }: PayloadAction<string>) {
@@ -24,53 +29,46 @@ const pokemonSlice = createSlice({
     selectActivePokemonId: state => state.activePokemonId,
     selectPokemon: state => state.entities,
   },
+  extraReducers: builder => {
+    builder.addCase(fetchPokemonAsyncThunk.fulfilled, (state, action) => {
+      pokemonAdapter.addMany(state, action.payload);
+    });
+  },
 });
 
-const fetchPokemonListThunk =
-  (limit?: number): AppThunk =>
-  async dispatch => {
-    try {
-      const res = await api.fetchPokemonList(limit);
-      const pokemonBaseList: PokemonListItem[] = res.results ?? [];
+const fetchPokemonAsyncThunk = createAsyncThunk(
+  'fetchPokemonAsyncThunk',
+  async (limit?: number) => {
+    const res = await api.fetchPokemonList(limit);
+    const pokemonBaseList: PokemonListItem[] = res.results ?? [];
 
-      const pokemonPromises = pokemonBaseList.map(result => {
-        return api.fetchPokemonInfo(result);
-      });
+    const pokemonPromises = pokemonBaseList.map(result => {
+      return api.fetchPokemonInfo(result);
+    });
 
-      const promiseAllResults = await Promise.allSettled(pokemonPromises);
+    const promiseAllResults = await Promise.allSettled(pokemonPromises);
 
-      const pokemonList = promiseAllResults.map((result, index) => {
-        let pokemon: PokemonEntity = pokemonBaseList[index];
-        const status = result.status;
-        if (status === 'fulfilled') {
-          pokemon.imageUrl = result.value.sprites.front_default;
-        }
+    const pokemonList = promiseAllResults.map((result, index) => {
+      let pokemon: PokemonEntity = pokemonBaseList[index];
+      const status = result.status;
+      if (status === 'fulfilled') {
+        pokemon.imageUrl = result.value.sprites.front_default;
+      }
 
-        if (status === 'rejected') {
-          pokemon.error = result.reason;
-        }
-        return pokemon;
-      });
+      if (status === 'rejected') {
+        pokemon.error = result.reason;
+      }
+      return pokemon;
+    });
 
-      dispatch(addManyPokemon(pokemonList));
-    } catch (err) {
-      console.error(err);
-    }
-
-    // res[0].sprites.front_default
-    // const promise1 = Promise.resolve(3);
-    // const promise2 = new Promise((resolve, reject) =>
-    //   setTimeout(reject, 100, 'foo'),
-    // );
-
-    // const promises = results.map(({url}: PokemonListItem) => (url: string) => fetch(url).then(response => response.json())
-
-    // Promise.allSettled(promises).then(results =>
-    //   results.forEach(result => console.log(result.status)),
-    // );
-  };
+    return pokemonList;
+  },
+);
 
 export const { addManyPokemon, setActivePokemonId } = pokemonSlice.actions;
+
 export const { selectActivePokemonId } = pokemonSlice.selectors;
-export { fetchPokemonListThunk, pokemonAdapter };
+
+export { fetchPokemonAsyncThunk, pokemonAdapter };
+
 export default pokemonSlice.reducer;

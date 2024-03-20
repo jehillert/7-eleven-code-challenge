@@ -4,7 +4,8 @@ import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeProvider, styled } from 'styled-components/native';
 import { LoadingOverlay } from './components';
-import PokemonGridView from './components/PokemonGridView';
+import NavWrapper from './features/navigation/NavWrapper';
+import StackNavigator from './features/navigation/StackNavigator';
 import {
   fetchPokemonAsyncThunk,
   selectIsPokemon,
@@ -35,7 +36,9 @@ let AppCore = () => {
           backgroundColor={appTheme.colors.statusBar}
         />
         <LoadingOverlay />
-        <PokemonGridView />
+        <NavWrapper>
+          <StackNavigator />
+        </NavWrapper>
       </AppSafeArea>
     </ThemeProvider>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Modal, StyleProp, View, ViewStyle } from 'react-native';
+import { Modal, StyleProp, ViewStyle } from 'react-native';
 import { SkypeIndicator, SkypeIndicatorProps } from 'react-native-indicators';
 import styled, { useTheme } from 'styled-components/native';
 import { selectIsLoading, useAppSelector } from '../store';
 
-const LocalizedWrapper = styled(View)`
+const LocalizedWrapper = styled.View`
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@ const LocalizedWrapper = styled(View)`
   background-color: ${({ theme }) => theme.colors.backdrop};
 `;
 
-const FullScreenWrapper = styled(View)`
+const FullScreenWrapper = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;

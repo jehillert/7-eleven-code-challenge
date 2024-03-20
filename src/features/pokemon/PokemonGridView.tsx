@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { selectPokemon, useAppSelector } from '../store';
+import { selectPokemon, useAppSelector } from '../../store';
 import PokemonGridItem from './PokemonGridItem';
 
 const GridContainer = styled.View`

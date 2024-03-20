@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { selectPokemonById, useAppSelector } from '../store';
-import { Incrementer } from './IncrementButton';
+import { Incrementer } from '../../components/IncrementButton';
+import { selectPokemonById, useAppSelector } from '../../store';
 
 const GridItemView = styled.View`
   row-gap: 8px;

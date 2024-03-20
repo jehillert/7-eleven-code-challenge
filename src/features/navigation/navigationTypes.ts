@@ -6,14 +6,14 @@ import type {
 import { UnionOfObjPropTypes } from '../../types';
 
 enum Screen {
-  HOME = 'Home',
+  POKEMON = 'Pokemon',
   CART = 'Cart',
 }
 
 type ScreenType = `${Screen}`;
 
 type RootStackParamList = {
-  Home: undefined;
+  Pokemon: undefined;
   Cart: undefined;
 };
 
@@ -29,7 +29,7 @@ type RootNavigationProp = NativeStackNavigationProp<
   undefined
 >;
 
-type FCScreenProp = {
+type AppScreenProp = {
   route?: RouteProp<RootStackParamList, ScreenType>;
   navigation?: RootNavigationProp;
 };
@@ -48,8 +48,8 @@ declare global {
 export { Screen };
 
 export type {
+  AppScreenProp,
   CartScreenProps,
-  FCScreenProp,
   HomeScreenProps,
   RootNavigationProp,
   RootRouteProp,

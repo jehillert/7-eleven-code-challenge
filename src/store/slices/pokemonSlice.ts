@@ -2,16 +2,15 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
+  nanoid,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { api } from '../../api';
-import { PokemonEntity, PokemonListItem } from '../../types';
+import { PokemonBaseEntity, PokemonEntity, PokemonListItem } from '../../types';
 
 type LoadingState = 'idle' | 'pending' | 'succeeded' | 'failed';
 
-const pokemonAdapter = createEntityAdapter({
-  selectId: (pokemon: PokemonListItem) => pokemon.name,
-});
+const pokemonAdapter = createEntityAdapter<PokemonEntity>({});
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
@@ -28,6 +27,7 @@ const pokemonSlice = createSlice({
   selectors: {
     selectActivePokemonId: state => state.activePokemonId,
     selectPokemon: state => state.entities,
+    selectLoading: state => state.loading,
   },
   extraReducers: builder => {
     builder.addCase(fetchPokemonAsyncThunk.fulfilled, (state, action) => {
@@ -48,18 +48,20 @@ const fetchPokemonAsyncThunk = createAsyncThunk(
 
     const promiseAllResults = await Promise.allSettled(pokemonPromises);
 
-    const pokemonList = promiseAllResults.map((result, index) => {
-      let pokemon: PokemonEntity = pokemonBaseList[index];
-      const status = result.status;
-      if (status === 'fulfilled') {
-        pokemon.imageUrl = result.value.sprites.front_default;
-      }
+    const pokemonList: PokemonEntity[] = promiseAllResults.map(
+      (result, index) => {
+        let pokemon: PokemonBaseEntity = pokemonBaseList[index];
+        const status = result.status;
+        const isFulfilled = status === 'fulfilled';
 
-      if (status === 'rejected') {
-        pokemon.error = result.reason;
-      }
-      return pokemon;
-    });
+        return {
+          ...pokemon,
+          id: nanoid(),
+          imageUrl: isFulfilled ? result.value.sprites.front_default : '',
+          error: !isFulfilled ? (result.reason as string) : '',
+        };
+      },
+    );
 
     return pokemonList;
   },

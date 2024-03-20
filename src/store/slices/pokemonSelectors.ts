@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { pokemonAdapter } from './pokemonSlice';
 
-const getPokemontate = (state: RootState) => state.pokemon;
+const getPokemonState = (state: RootState) => state.pokemon;
 
 const {
   selectAll: selectPokemon,
@@ -17,7 +17,7 @@ const { selectById, selectEntities } = pokemonAdapter.getSelectors();
  * const myPokemon = useAppSelector(selectPokemonById(id));
  */
 const selectPokemonById = (id: string) =>
-  createSelector(getPokemontate, pokemontate => selectById(pokemontate, id));
+  createSelector(getPokemonState, pokemonState => selectById(pokemonState, id));
 
 /**
  * @example
@@ -25,12 +25,12 @@ const selectPokemonById = (id: string) =>
  * const myPokemon = useAppSelector(selectPokemonByIds(ids));
  */
 const selectPokemonByIds = (ids: string[]) =>
-  createSelector(getPokemontate, pokemontate => {
+  createSelector(getPokemonState, pokemontate => {
     return ids.map(id => selectEntities(pokemontate)[id]);
   });
 
 export {
-  getPokemontate,
+  getPokemonState,
   selectPokemon,
   selectPokemonById,
   selectPokemonByIds,

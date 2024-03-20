@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Button, ScrollView, StatusBar, View } from 'react-native';
+import { Button, StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { ThemeProvider, styled } from 'styled-components/native';
+import PokemonGrid from './components/PokemonGrid';
 import {
   fetchPokemonAsyncThunk,
   selectPokemon,
@@ -19,18 +19,12 @@ const AppSafeArea = styled(SafeAreaView)`
 
 let AppCore = () => {
   const dispatch = useAppDispatch();
-  const { appTheme, barStyle, isDark } = useAppTheme();
-  const backgroundStyle = {
-    backgroundColor: isDark ? Colors.darker : Colors.lighter,
-  };
+  const { appTheme, barStyle } = useAppTheme();
+
   const pokemon = useAppSelector(selectPokemon);
+
   useEffect(() => {
     console.log(JSON.stringify(pokemon, undefined, 2));
-    // console.log(
-    //   fetch(pokemon[0].url)
-    //     .then(response => response.json())
-    //     .then(res => console.log(JSON.stringify(res, undefined, 2))),
-    // );
   }, [pokemon]);
 
   return (
@@ -40,22 +34,11 @@ let AppCore = () => {
           barStyle={barStyle}
           backgroundColor={appTheme.colors.statusBar}
         />
-        {/* <AppNavContainer> */}
-        {/* <StackNavigator /> */}
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <Button
-            title="Fetch Pokemon"
-            onPress={() => dispatch(fetchPokemonAsyncThunk(10))}
-          />
-          <View
-            style={{
-              backgroundColor: isDark ? '#000000' : '#ffffff',
-            }}
-          />
-        </ScrollView>
-        {/* </AppNavContainer> */}
+        <Button
+          title="Fetch Pokemon"
+          onPress={() => dispatch(fetchPokemonAsyncThunk(10))}
+        />
+        <PokemonGrid />
       </AppSafeArea>
     </ThemeProvider>
   );

@@ -3,7 +3,6 @@ import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeProvider, styled } from 'styled-components/native';
-import { LoadingOverlay } from './components';
 import NavWrapper from './features/navigation/NavWrapper';
 import StackNavigator from './features/navigation/StackNavigator';
 import {
@@ -34,7 +33,6 @@ let AppCore = () => {
           barStyle={barStyle}
           backgroundColor={appTheme.colors.background1}
         />
-        <LoadingOverlay />
         <NavWrapper>
           <StackNavigator />
         </NavWrapper>

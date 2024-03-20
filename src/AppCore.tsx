@@ -16,7 +16,6 @@ import { useAppTheme } from './theme/useAppTheme';
 
 const AppSafeArea = styled(SafeAreaView)`
   flex: 1;
-  background-color: #3e3d3d;
 `;
 
 let AppCore = () => {
@@ -33,7 +32,7 @@ let AppCore = () => {
       <AppSafeArea>
         <StatusBar
           barStyle={barStyle}
-          backgroundColor={appTheme.colors.statusBar}
+          backgroundColor={appTheme.colors.background1}
         />
         <LoadingOverlay />
         <NavWrapper>

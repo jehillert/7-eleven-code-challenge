@@ -15,6 +15,7 @@ const HeaderContainer = styled.View`
 const HeaderTitle = styled.Text`
   flex: 1;
   margin-left: ${-2}px;
+  color: ${({ theme }) => theme.colors.text};
   ${({ theme }) => theme.typography.titleMedium}
 `;
 

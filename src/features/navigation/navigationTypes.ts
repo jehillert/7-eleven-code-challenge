@@ -7,14 +7,14 @@ import { UnionOfObjPropTypes } from '../../types';
 
 enum Screen {
   POKEMON = 'Pokemon',
-  CART = 'Cart',
+  CHECKOUT = 'Checkout',
 }
 
 type ScreenType = `${Screen}`;
 
 type RootStackParamList = {
   Pokemon: undefined;
-  Cart: undefined;
+  Checkout: undefined;
 };
 
 type RootStackParamValue = UnionOfObjPropTypes<RootStackParamList>;
@@ -24,7 +24,10 @@ type PokemonScreenProps = NativeStackScreenProps<
   Screen.POKEMON
 >;
 
-type CartScreenProps = NativeStackScreenProps<RootStackParamList, Screen.CART>;
+type CartScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  Screen.CHECKOUT
+>;
 
 type RootNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

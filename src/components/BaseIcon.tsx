@@ -6,19 +6,20 @@ import styled, { useTheme } from 'styled-components/native';
 import { IconSize, getIconSize } from '../theme';
 import { dimensions } from '../theme/theme';
 import { AnyReturnCallback } from '../types';
+
 type Spacing = {
-  $padding?: string;
-  $margin?: string;
+  padding?: string;
+  margin?: string;
 };
 
 const MatComIcon = styled(BaseMatComIcon)<Spacing>`
-  ${({ $margin }) => ($margin ? `margin: ${$margin};` : ``)}
-  padding: ${({ $padding }) => ($padding ? `${$padding};` : `${6}px`)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : ``)}
+  padding: ${({ padding }) => (padding ? `${padding};` : `${6}px`)};
 `;
 
 const MaterialIcon = styled(BaseMaterialIcon)<Spacing>`
-  ${({ $margin }) => ($margin ? `margin: ${$margin};` : ``)}
-  padding: ${({ $padding }) => ($padding ? `${$padding};` : `${6}px`)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : ``)}
+  padding: ${({ padding }) => (padding ? `${padding};` : `${6}px`)};
 `;
 
 type Props = {
@@ -63,8 +64,8 @@ const BaseIcon = ({
       name={name}
       size={size}
       color={iconColor}
-      $padding={padding}
-      $margin={margin}
+      padding={padding}
+      margin={margin}
       // @ts-ignore
       style={style}
       {...rest}
@@ -76,8 +77,8 @@ const BaseIcon = ({
       name={name}
       size={size}
       color={iconColor}
-      $padding={padding}
-      $margin={margin}
+      padding={padding}
+      margin={margin}
       // @ts-ignore
       style={style}
       {...rest}

@@ -14,7 +14,7 @@ const animation = {
 const dimensions = {
   iconSmall: 16,
   iconMedSmall: 20,
-  iconMedium: 28,
+  iconMedium: 24,
   iconLarge: 32,
   iconFab: 56,
   cardBorderRadius: 6,
@@ -25,6 +25,12 @@ const dimensions = {
   },
   ...staticDimensions,
 };
+
+const rad = (scalar: number) => scalar * 4;
+
+const p = (scalar: number) => scalar * 8;
+
+const m = (scalar: number) => scalar * 8;
 
 const spacing = {
   hairlineWidth: StyleSheet.hairlineWidth,
@@ -40,9 +46,12 @@ const commonColors = {
 
 const lightColors = {
   ...commonColors,
+  background1: '#ffffff',
+  background2: '#838383',
+  background3: '#696868',
   background: '#d1d1d1',
-  gridItemBackground: '#9e9d9d',
-  incrementButton: '#454545',
+  // gridItemBackground: '#9e9d9d',
+  buttonBackground: '#454444',
   navHeader: '#eaecf5',
   onPrimary: '#8a8a88',
   statusBar: '#d1d1d1',
@@ -53,9 +62,12 @@ const lightColors = {
 
 const darkColors: Colors = {
   ...commonColors,
+  ...commonColors,
+  background1: '#000000',
+  background2: '#2a2a2aff',
+  background3: '#6a6969ff',
   background: '#434343',
-  gridItemBackground: '#121111',
-  incrementButton: '#747070',
+  buttonBackground: '#747070',
   navHeader: '#0a0a0a',
   onPrimary: '#ffffff',
   statusBar: '#434343',
@@ -83,6 +95,9 @@ const fontWeight: Record<string, TextStyle['fontWeight']> = {
 const restOfTheme = {
   absoluteFill,
   animation,
+  p,
+  m,
+  rad,
   dimensions,
   fontWeight,
   shadow: shadowCss,

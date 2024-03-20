@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { selectPokemon, useAppSelector } from '../../store';
-import PokemonGridItem from './PokemonGridItem';
+import PokemonCard from './PokemonCard';
 
 const GridContainer = styled.View`
   justify-content: center;
@@ -20,7 +20,7 @@ const PokemonGridView = ({}: Props) => {
   const pokemon = useAppSelector(selectPokemon);
   // const count = pokemon?.length ?? 0;
   const gridContent = pokemon.map(({ id }) => (
-    <PokemonGridItem key={id} pokemonId={id} />
+    <PokemonCard key={id} pokemonId={id} />
   ));
 
   return (

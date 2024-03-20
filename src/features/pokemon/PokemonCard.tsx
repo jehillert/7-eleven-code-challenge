@@ -8,7 +8,8 @@ const GridItemView = styled.View`
   width: ${({ theme }) => (theme.dimensions.screenWidth - 32) / 3}px;
   align-items: center;
   padding: 16px 0px;
-  background-color: ${({ theme }) => theme.colors.gridItemBackground};
+  background-color: ${({ theme }) => theme.colors.background2};
+  border-radius: ${({ theme }) => theme.rad(4)}px;
   ${({ theme }) => theme.shadow[0]};
 `;
 
@@ -25,7 +26,7 @@ type Props = {
   pokemonId: string;
 };
 
-const PokemonGridItem = ({ pokemonId }: Props) => {
+const PokemonCard = ({ pokemonId }: Props) => {
   const { name, imageUrl } = useAppSelector(selectPokemonById(pokemonId));
 
   return (
@@ -35,9 +36,14 @@ const PokemonGridItem = ({ pokemonId }: Props) => {
         onError={err => console.log(err)}
       />
       <PokemonNameText>{name}</PokemonNameText>
-      <Incrementer id={pokemonId} countPosition="middle" invertButtons />
+      <Incrementer
+        id={pokemonId}
+        countPosition="middle"
+        invertButtons
+        size="small"
+      />
     </GridItemView>
   );
 };
 
-export default PokemonGridItem;
+export default PokemonCard;

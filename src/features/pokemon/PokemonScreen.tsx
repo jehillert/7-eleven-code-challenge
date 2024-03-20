@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { selectPokemon, useAppSelector } from '../../store';
 import { AppScreenProp } from '../navigation/navigationTypes';
-import PokemonGridItem from './PokemonGridItem';
+import PokemonCard from './PokemonCard';
 
 const GridContainer = styled.View`
   justify-content: center;
@@ -18,7 +18,7 @@ const GridContainer = styled.View`
 const PokemonScreen = (props: AppScreenProp) => {
   const pokemon = useAppSelector(selectPokemon);
   const gridContent = pokemon.map(({ id }) => (
-    <PokemonGridItem key={id} pokemonId={id} />
+    <PokemonCard key={id} pokemonId={id} />
   ));
 
   return (

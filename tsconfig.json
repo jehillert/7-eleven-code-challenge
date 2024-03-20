@@ -1,3 +1,29 @@
 {
+  "compilerOptions": {
+    "noErrorTruncation": true,
+    "plugins": [
+      {
+        "lint": {
+          "validProperties": [
+            "aspect-ratio",
+            "box-shadow",
+            "elevation",
+            "margin-horizontal",
+            "margin-vertical",
+            "padding-horizontal",
+            "padding-vertical",
+            "resize-mode",
+            "shadow-color",
+            "shadow-offset",
+            "shadow-opacity",
+            "shadow-radius",
+            "text-align-vertical",
+            "tint-color"
+          ]
+        },
+        "name": "@styled/typescript-styled-plugin"
+      }
+    ]
+  },
   "extends": "@react-native/typescript-config/tsconfig.json"
 }

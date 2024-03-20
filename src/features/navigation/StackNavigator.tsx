@@ -59,13 +59,13 @@ const StackNavigator = () => {
         />
 
         <Stack.Screen
-          name={'Cart'}
+          name={'Checkout'}
           component={CartScreen}
           options={props => ({
             headerBackVisible: false,
             headerLeft: curriedBackButton({
               ...props,
-              title: toTitleCase(Screen.CART),
+              title: toTitleCase(Screen.CHECKOUT),
             }),
             title: '',
           })}

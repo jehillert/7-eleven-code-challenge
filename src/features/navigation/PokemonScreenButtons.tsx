@@ -19,7 +19,7 @@ const ButtonView = styled.View`
 const PokemonScreenButtons = ({ navigation }: PokemonScreenProps) => {
   const { colors } = useTheme();
   const dispatch = useAppDispatch();
-  const handlePressCart = () => navigation.navigate('Cart');
+  const handlePressCart = () => navigation.navigate('Checkout');
   const handlePressTheme = () => dispatch(toggleTheme());
   const cartIds = useAppSelector(selectCartIds);
   const cartDisabled = !cartIds.length;

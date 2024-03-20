@@ -1,24 +1,21 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import styled, { useTheme } from 'styled-components/native';
-import { BaseIcon, Incrementer } from '../../components';
-import {
-  removeFromCart,
-  selectPokemonById,
-  useAppDispatch,
-  useAppSelector,
-} from '../../store';
-import { IconSize, getIconSize } from '../../theme';
+import styled from 'styled-components/native';
+import { Incrementer } from '../../components';
+import { selectPokemonById, useAppSelector } from '../../store';
+import { getIconSize } from '../../theme';
+import { toTitleCase } from '../../utils';
 
 const Row = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: 16px 0px;
-  background-color: ${({ theme }) => theme.colors.gridItemBackground};
+  align-items: center;
+  padding: 8px;
+  background-color: ${({ theme }) => theme.colors.background2};
   ${({ theme }) => theme.shadow[0]};
 `;
 
 const LeftColumn = styled.View`
+  align-items: center;
   flex-direction: row;
   column-gap: 8px;
 `;
@@ -26,6 +23,7 @@ const LeftColumn = styled.View`
 const PokemonIcon = styled.Image<{ size: number }>`
   height: ${({ size }) => size}px;
   width: ${({ size }) => size}px;
+  margin-horizontal: 8px;
 `;
 
 const PokemonNameText = styled.Text`
@@ -33,32 +31,31 @@ const PokemonNameText = styled.Text`
 `;
 
 type Props = {
-  iconSize?: IconSize;
   pokemonId: string;
 };
 
-const CartRow = ({ pokemonId, iconSize = 'medium-small' }: Props) => {
-  const dispatch = useAppDispatch();
-  const size = getIconSize(iconSize);
+const CartRow = ({ pokemonId }: Props) => {
+  const iconSize = 'medium-small';
+  const pokemonIconSize = getIconSize('large');
   const { name, imageUrl } = useAppSelector(selectPokemonById(pokemonId));
-  const { colors } = useTheme();
-
-  const handlePressTrash = () => dispatch(removeFromCart(pokemonId));
 
   return (
     <Row>
       <LeftColumn>
         <PokemonIcon
-          size={size}
+          size={pokemonIconSize}
           source={{ uri: imageUrl }}
           onError={err => console.log(err)}
         />
-        <PokemonNameText>{name}</PokemonNameText>
+        <PokemonNameText>{toTitleCase(name)}</PokemonNameText>
       </LeftColumn>
-      <Incrementer id={pokemonId} countPosition="beginning" size="medium" />
-      <TouchableOpacity onPress={handlePressTrash}>
-        <BaseIcon name="trash-can" color={colors.text} size="medium" />
-      </TouchableOpacity>
+      <Incrementer
+        id={pokemonId}
+        countPosition="beginning"
+        size={iconSize}
+        showDelete
+        incButtonMargin="-5px"
+      />
     </Row>
   );
 };

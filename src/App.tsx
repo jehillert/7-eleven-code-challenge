@@ -1,5 +1,5 @@
 import React from 'react';
-import { UIManager } from 'react-native';
+import { LogBox, UIManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import AppCore from './AppCore';
@@ -9,6 +9,8 @@ import { store } from './store';
 if (isAndroid && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
+
+LogBox.ignoreAllLogs();
 
 function App(): React.JSX.Element {
   return (

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Appearance } from 'react-native';
-import { RootState } from '../store';
+import { RootState } from '../../store/store';
 
 type ThemeId = 'light' | 'dark' | 'system';
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeProvider, styled } from 'styled-components/native';
@@ -8,7 +8,6 @@ import PokemonGridView from './components/PokemonGridView';
 import {
   fetchPokemonAsyncThunk,
   selectIsPokemon,
-  selectLoading,
   useAppDispatch,
   useAppSelector,
 } from './store';
@@ -23,17 +22,10 @@ let AppCore = () => {
   const dispatch = useAppDispatch();
   const { appTheme, barStyle } = useAppTheme();
   const isPokemon = useAppSelector(selectIsPokemon);
-  const isLoading = useAppSelector(selectLoading);
-  const loading = useAppSelector(selectLoading);
 
   useEffect(() => {
     !isPokemon && dispatch(fetchPokemonAsyncThunk(100));
   }, []);
-
-  useEffect(() => {
-    console.log(`🔥${isLoading}`);
-    console.log(`🔥${loading}`);
-  }, [isLoading, loading]);
 
   return (
     <ThemeProvider theme={appTheme}>
@@ -43,10 +35,6 @@ let AppCore = () => {
           backgroundColor={appTheme.colors.statusBar}
         />
         <LoadingOverlay />
-        <Button
-          title="Fetch Pokemon"
-          onPress={() => dispatch(fetchPokemonAsyncThunk(10))}
-        />
         <PokemonGridView />
       </AppSafeArea>
     </ThemeProvider>

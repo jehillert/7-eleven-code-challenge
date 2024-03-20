@@ -8,6 +8,7 @@ import PokemonGridView from './components/PokemonGridView';
 import {
   fetchPokemonAsyncThunk,
   selectIsPokemon,
+  selectLoading,
   useAppDispatch,
   useAppSelector,
 } from './store';
@@ -22,10 +23,17 @@ let AppCore = () => {
   const dispatch = useAppDispatch();
   const { appTheme, barStyle } = useAppTheme();
   const isPokemon = useAppSelector(selectIsPokemon);
+  const isLoading = useAppSelector(selectLoading);
+  const loading = useAppSelector(selectLoading);
 
   useEffect(() => {
     !isPokemon && dispatch(fetchPokemonAsyncThunk(100));
   }, []);
+
+  useEffect(() => {
+    console.log(`🔥${isLoading}`);
+    console.log(`🔥${loading}`);
+  }, [isLoading, loading]);
 
   return (
     <ThemeProvider theme={appTheme}>

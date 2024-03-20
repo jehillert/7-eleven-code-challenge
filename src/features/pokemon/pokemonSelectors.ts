@@ -4,6 +4,11 @@ import { pokemonAdapter } from './pokemonSlice';
 
 const getPokemonState = (state: RootState) => state.pokemon;
 
+const selectIsLoading = (state: RootState) =>
+  state.pokemon.loading === 'pending';
+
+const selectLoading = (state: RootState) => state.pokemon.loading;
+
 const {
   selectAll: selectPokemon,
   selectEntities: selectPokemonDict,
@@ -27,16 +32,23 @@ const selectPokemonById = (id: string) =>
  * const myPokemon = useAppSelector(selectPokemonByIds(ids));
  */
 const selectPokemonByIds = (ids: string[]) =>
-  createSelector(getPokemonState, pokemontate => {
-    return ids.map(id => selectEntities(pokemontate)[id]);
+  createSelector(getPokemonState, pokemonState => {
+    return ids.map(id => selectEntities(pokemonState)[id]);
   });
+
+const selectPokemonCartList = createSelector(selectPokemon, pokemon => {
+  return pokemon.filter((p, currentIndex) => p.cartCount > 0);
+});
 
 export {
   getPokemonState,
+  selectIsLoading,
   selectIsPokemon,
+  selectLoading,
   selectPokemon,
   selectPokemonById,
   selectPokemonByIds,
+  selectPokemonCartList,
   selectPokemonDict,
   selectPokemonIds,
 };

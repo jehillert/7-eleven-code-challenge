@@ -4,22 +4,24 @@ import {
   createSlice,
   nanoid,
   PayloadAction,
+  SerializedError,
 } from '@reduxjs/toolkit';
 import { PokemonBaseEntity, PokemonEntity, PokemonListItem } from '.';
 import { api } from '../../api';
+
+type LoadingStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
 
 const pokemonAdapter = createEntityAdapter<PokemonEntity>({});
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState: pokemonAdapter.getInitialState({
-    activePokemonId: '',
+    loading: 'idle' as LoadingStatus,
+    currentRequestId: undefined as string | undefined,
+    requestError: null as SerializedError | null,
   }),
   reducers: {
     addManyPokemon: pokemonAdapter.addMany,
-    setActivePokemonId(state, { payload }: PayloadAction<string>) {
-      state.activePokemonId = payload;
-    },
     incrementCart(state, { payload }: PayloadAction<string>) {
       state.entities[payload].cartCount += 1;
     },
@@ -29,20 +31,48 @@ const pokemonSlice = createSlice({
     removeFromCart(state, { payload }: PayloadAction<string>) {
       state.entities[payload].cartCount = 0;
     },
+    setLoadingState(state, { payload }: PayloadAction<LoadingStatus>) {
+      state.loading = payload;
+    },
   },
   selectors: {
-    selectActivePokemonId: state => state.activePokemonId,
     selectPokemon: state => state.entities,
   },
   extraReducers: builder => {
-    builder.addCase(fetchPokemonAsyncThunk.fulfilled, (state, action) => {
-      pokemonAdapter.addMany(state, action.payload);
-    });
+    builder
+      .addCase(fetchPokemonAsyncThunk.pending, (state, action) => {
+        if (state.loading === 'idle') {
+          state.loading = 'pending';
+          state.currentRequestId = action.meta.requestId;
+        }
+      })
+      .addCase(fetchPokemonAsyncThunk.fulfilled, (state, action) => {
+        const { requestId } = action.meta;
+        if (
+          state.loading === 'pending' &&
+          state.currentRequestId === requestId
+        ) {
+          state.loading = 'idle';
+          state.currentRequestId = undefined;
+          pokemonAdapter.addMany(state, action.payload);
+        }
+      })
+      .addCase(fetchPokemonAsyncThunk.rejected, (state, action) => {
+        const { requestId } = action.meta;
+        if (
+          state.loading === 'pending' &&
+          state.currentRequestId === requestId
+        ) {
+          state.loading = 'idle';
+          state.requestError = action.error;
+          state.currentRequestId = undefined;
+        }
+      });
   },
 });
 
 const fetchPokemonAsyncThunk = createAsyncThunk(
-  'fetchPokemonAsyncThunk',
+  'pokemon/requestStatus',
   async (limit?: number) => {
     const res = await api.fetchPokemonList(limit);
     const pokemonBaseList: PokemonListItem[] = res.results ?? [];
@@ -75,13 +105,13 @@ const fetchPokemonAsyncThunk = createAsyncThunk(
 
 export const {
   addManyPokemon,
-  setActivePokemonId,
   incrementCart,
   decrementCart,
   removeFromCart,
+  setLoadingState,
 } = pokemonSlice.actions;
 
-export const { selectActivePokemonId } = pokemonSlice.selectors;
+export const {} = pokemonSlice.selectors;
 
 export { fetchPokemonAsyncThunk, pokemonAdapter };
 

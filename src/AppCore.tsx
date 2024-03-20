@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { ThemeProvider, styled } from 'styled-components/native';
 import {
-  fetchPokemonThunk,
+  fetchPokemonListThunk,
   selectPokemon,
   useAppDispatch,
   useAppSelector,
@@ -26,6 +26,11 @@ let AppCore = () => {
   const pokemon = useAppSelector(selectPokemon);
   useEffect(() => {
     console.log(JSON.stringify(pokemon, undefined, 2));
+    // console.log(
+    //   fetch(pokemon[0].url)
+    //     .then(response => response.json())
+    //     .then(res => console.log(JSON.stringify(res, undefined, 2))),
+    // );
   }, [pokemon]);
 
   return (
@@ -42,7 +47,7 @@ let AppCore = () => {
           style={backgroundStyle}>
           <Button
             title="Fetch Pokemon"
-            onPress={() => dispatch(fetchPokemonThunk())}
+            onPress={() => dispatch(fetchPokemonListThunk(10))}
           />
           <View
             style={{

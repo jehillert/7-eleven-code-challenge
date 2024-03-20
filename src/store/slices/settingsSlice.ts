@@ -2,46 +2,37 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Appearance } from 'react-native';
 import { RootState } from '../store';
 
-type ThemeSelection = 'light' | 'dark' | 'system';
+type ThemeId = 'light' | 'dark' | 'system';
 
 const settingsSlice = createSlice({
   name: 'settings',
   initialState: {
-    themeSelection: 'system' as ThemeSelection,
+    themeId: 'system' as ThemeId,
   },
   reducers: {
-    setThemeSelection(
-      state,
-      { payload: themeSelection }: PayloadAction<ThemeSelection>,
-    ) {
-      state.themeSelection = themeSelection;
+    setThemeId(state, { payload: themeId }: PayloadAction<ThemeId>) {
+      state.themeId = themeId;
     },
     toggleTheme(state) {
       const systemColorScheme = Appearance.getColorScheme() ?? 'light';
       const currentTheme =
-        state.themeSelection === 'system'
-          ? systemColorScheme
-          : state.themeSelection;
-      state.themeSelection = currentTheme === 'light' ? 'dark' : 'light';
+        state.themeId === 'system' ? systemColorScheme : state.themeId;
+      state.themeId = currentTheme === 'light' ? 'dark' : 'light';
     },
   },
   selectors: {
-    selectThemeSelection: state => state.themeSelection,
+    selectThemeId: state => state.themeId,
   },
 });
 
 const selectTheme = (state: RootState) => {
-  const themeSelection = state.settings.themeSelection;
-  const colorScheme = Appearance.getColorScheme() ?? 'light';
-  return themeSelection === 'system' ? colorScheme : themeSelection;
+  const themeId = state.settings.themeId;
+  const colorScheme = Appearance?.getColorScheme() ?? 'light';
+  return themeId === 'system' ? colorScheme : themeId;
 };
 
-export type { ThemeSelection };
-
-export const { setThemeSelection, toggleTheme } = settingsSlice.actions;
-
-export const { selectThemeSelection } = settingsSlice.selectors;
-
 export { selectTheme };
-
+export type { ThemeId };
+export const { setThemeId, toggleTheme } = settingsSlice.actions;
+export const { selectThemeId } = settingsSlice.selectors;
 export default settingsSlice.reducer;

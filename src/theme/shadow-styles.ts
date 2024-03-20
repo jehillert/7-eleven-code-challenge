@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {isIos} from '../constants';
+import { StyleSheet } from 'react-native';
+import { isIos } from '../constants';
 
 const shadowObj = StyleSheet.create({
   fabIos: {
@@ -59,4 +59,4 @@ const shadowCss = {
   }`,
 };
 
-export {shadowCss, shadowObj};
+export { shadowCss, shadowObj };

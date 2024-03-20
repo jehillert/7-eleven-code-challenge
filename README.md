@@ -8,12 +8,18 @@ Notes:
 - Src folder is 1600-1700 lines of code (`cloc --autoconf src`).  Coding time was about 14 hours (see [commit historoy](https://github.com/jehillert/7-eleven-code-challenge/commits/main/)). A couple hundred lines I pulled from my personal projects, like typography for theming.
 - The commit messages are ugly. I do not do that when I am working on a team;
 
-[Demo Video]()
+
+https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/b7b65be0-bc3d-4279-9634-81d5c19d2f00
+
 
 ### Not-A-Bonus Story: Theming
 I integrated a light and dark theme through styled-components.  It is not the simplest way to theme, just a decent one if no UI libraries are being used and you want more control than React Navigation provides.
 
-[Demo Video]()
+
+
+https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/533a1c43-2b69-497f-9b9c-a7d975b73708
+
+
 
 ### Bonus Story: Bonus Story: Dynamic Pricing Based on Weight
 This is shown in previous two videos.
@@ -31,6 +37,8 @@ I implemented Sentry basic logging, but with the following additional functional
 - Sentry middleware provides all of the actions leading up to an error in breadcrumbs;
 
 I did not have time to implement environment variables, but this code can be run in the following branch with a valid SENTRY_DSN.
+
+[this link](https://1drv.ms/v/s!Ahk-EzuDqhiElsFmyM_6qcZ_iFsCzA?e=mt2ScZ) shows the app logging locally in development, and sending logs to the project hosted on Sentries website.
 
 Branch
 https://github.com/jehillert/7-eleven-code-challenge/tree/sentry-integration
@@ -65,7 +73,7 @@ export type PokemonBaseEntity = {
 
 ### Additional Notes
 #### Printout of State Tree
-This is what my state tree looks like after fetching data.
+This is what my state tree looks like after fetching data.  I probably could have removed a few fields from the Pokemon entities to keep state smaller.
 
 ```json
 {

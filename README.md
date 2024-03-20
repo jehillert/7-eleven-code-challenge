@@ -5,8 +5,7 @@ The cart page mentioned "a summary view of the cart and selected Pokemon details
 Notes:
 - The app retrieves the data immediately when it is open, but there is also a pull-to-refresh.  I used Promise.allSettled (instead of Promise.all, which will stop if one fails) in combination with createAsynThunk;
 - I use redux toolkits createSlice, primarily for reducers and actions. I manage request state using createAsyncThunk and the builder patter (addCase, matchCase)
-- Src folder is 1600-1700 lines of code (`cloc --autoconf src`).  Coding time was about 14 hours (see [commit historoy](https://github.com/jehillert/7-eleven-code-challenge/commits/main/)). A couple hundred lines I pulled from my personal projects, like typography for theming.
-- The commit messages are ugly. I do not do that when I am working on a team;
+- Apologies for the ugly commit messages.  That's not how I write them working on a team.;
 - My api call is not ideal.  Large result sets take a while. If I had more time, I would have experimented with breaking up the individual pokemon requests into smaller batches, in combination with some sort of infinite scroll.
 
 

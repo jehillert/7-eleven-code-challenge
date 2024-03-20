@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { RootState } from '../../store/store';
 import { pokemonAdapter } from './pokemonSlice';
 
 const getPokemonState = (state: RootState) => state.pokemon;
@@ -10,9 +10,9 @@ const {
   selectIds: selectPokemonIds,
 } = pokemonAdapter.getSelectors<RootState>(state => state.pokemon);
 
-const { selectById, selectEntities, selectIds } = pokemonAdapter.getSelectors();
+const { selectById, selectEntities } = pokemonAdapter.getSelectors();
 
-const selectIsPokemon = createSelector(selectIds, ids => !!ids?.length);
+const selectIsPokemon = createSelector(selectPokemonIds, ids => !!ids?.length);
 
 /**
  * @example

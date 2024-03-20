@@ -5,8 +5,8 @@ import {
   nanoid,
   PayloadAction,
 } from '@reduxjs/toolkit';
+import { PokemonBaseEntity, PokemonEntity, PokemonListItem } from '.';
 import { api } from '../../api';
-import { PokemonBaseEntity, PokemonEntity, PokemonListItem } from '../../types';
 
 const pokemonAdapter = createEntityAdapter<PokemonEntity>({});
 
@@ -19,6 +19,15 @@ const pokemonSlice = createSlice({
     addManyPokemon: pokemonAdapter.addMany,
     setActivePokemonId(state, { payload }: PayloadAction<string>) {
       state.activePokemonId = payload;
+    },
+    incrementCart(state, { payload }: PayloadAction<string>) {
+      state.entities[payload].cartCount += 1;
+    },
+    decrementCart(state, { payload }: PayloadAction<string>) {
+      state.entities[payload].cartCount -= 1;
+    },
+    removeFromCart(state, { payload }: PayloadAction<string>) {
+      state.entities[payload].cartCount = 0;
     },
   },
   selectors: {
@@ -52,6 +61,7 @@ const fetchPokemonAsyncThunk = createAsyncThunk(
 
         return {
           ...pokemon,
+          cartCount: 0,
           id: nanoid(),
           imageUrl: isFulfilled ? result.value.sprites.front_default : '',
           error: !isFulfilled ? (result.reason as string) : '',
@@ -63,7 +73,13 @@ const fetchPokemonAsyncThunk = createAsyncThunk(
   },
 );
 
-export const { addManyPokemon, setActivePokemonId } = pokemonSlice.actions;
+export const {
+  addManyPokemon,
+  setActivePokemonId,
+  incrementCart,
+  decrementCart,
+  removeFromCart,
+} = pokemonSlice.actions;
 
 export const { selectActivePokemonId } = pokemonSlice.selectors;
 

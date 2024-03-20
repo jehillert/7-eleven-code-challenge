@@ -43,6 +43,7 @@ const lightColors = {
   background: '#d1d1d1',
   statusBar: '#d1d1d1',
   onPrimary: '#8a8a88',
+  incrementButton: '#454545',
 };
 
 const darkColors: Colors = {
@@ -51,6 +52,7 @@ const darkColors: Colors = {
   background: '#434343',
   statusBar: '#434343',
   onPrimary: '#ffffff',
+  incrementButton: '#747070',
 };
 
 const absoluteFill = `

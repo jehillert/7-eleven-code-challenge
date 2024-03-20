@@ -21,4 +21,5 @@ export type PokemonBaseEntity = {
 
 export type PokemonEntity = Required<PokemonBaseEntity> & {
   id: string;
+  cartCount: number;
 };

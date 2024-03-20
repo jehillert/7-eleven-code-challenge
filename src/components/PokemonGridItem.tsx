@@ -1,6 +1,15 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { selectPokemonById, useAppSelector } from '../store';
+import { IncrementButton } from './IncrementButton';
+
+const ButtonGroupView = styled.View`
+  flex-direction: row;
+  top: 0px;
+  right: 0px;
+  column-gap: 8px;
+  margin: 2px;
+`;
 
 const GridItemView = styled.View`
   row-gap: 8px;
@@ -34,6 +43,10 @@ const PokemonGridItem = ({ pokemonId }: Props) => {
         onError={err => console.log(err)}
       />
       <PokemonNameText>{name}</PokemonNameText>
+      <ButtonGroupView>
+        <IncrementButton id={pokemonId} variant="+" />
+        <IncrementButton id={pokemonId} variant="-" />
+      </ButtonGroupView>
     </GridItemView>
   );
 };

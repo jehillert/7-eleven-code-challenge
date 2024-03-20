@@ -1,5 +1,9 @@
 import { PokeAPI } from 'pokeapi-types';
-import { PokemonLimit, PokemonListResponse, PokemonListItem } from './types';
+import {
+  PokemonLimit,
+  PokemonListItem,
+  PokemonListResponse,
+} from './features/pokemon';
 
 const pokemonApiBaseUrl = 'https://pokeapi.co';
 const pokemonEndpoint = 'api/v2/pokemon';

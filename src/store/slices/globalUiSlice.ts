@@ -1,6 +1,6 @@
 // https://redux-toolkit.js.org/usage/migrating-rtk-2
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchPokemonAsyncThunk } from './pokemonSlice';
+import { fetchPokemonAsyncThunk } from '../../features/pokemon/pokemonSlice';
 
 type LoadingStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
 

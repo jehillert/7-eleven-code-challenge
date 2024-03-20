@@ -1,5 +1,8 @@
 # 7-eleven challenge notes
 
+### Running the Solution
+The basic startup instructions generated with the project are below.  You should be able to use them to run locally without a problem.
+
 ### Stories 1-3: The Pokemon Picker
 The cart page mentioned "a summary view of the cart and selected Pokemon details".  I assumed the details just referred to the name, picture, and quanity. But I was not sure, and that's the reason I kept all of the pokemon details in state.  Normally, I would have kept only the details the app uses to avoid having a massive object in redux.
 Notes:

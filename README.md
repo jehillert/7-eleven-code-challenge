@@ -7,6 +7,7 @@ Notes:
 - I use redux toolkits createSlice, primarily for reducers and actions. I manage request state using createAsyncThunk and the builder patter (addCase, matchCase)
 - Src folder is 1600-1700 lines of code (`cloc --autoconf src`).  Coding time was about 14 hours (see [commit historoy](https://github.com/jehillert/7-eleven-code-challenge/commits/main/)). A couple hundred lines I pulled from my personal projects, like typography for theming.
 - The commit messages are ugly. I do not do that when I am working on a team;
+- My api call is not ideal.  Large result sets take a while. If I had more time, I would have experimented with breaking up the individual pokemon requests into smaller batches, in combination with some sort of infinite scroll.
 
 
 https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/b7b65be0-bc3d-4279-9634-81d5c19d2f00
@@ -16,8 +17,15 @@ https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/b7b65be0-bc
 I integrated a light and dark theme through styled-components.  It is not the simplest way to theme, just a decent one if no UI libraries are being used and you want more control than React Navigation provides.
 
 
-
 https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/533a1c43-2b69-497f-9b9c-a7d975b73708
+
+
+### Large result set
+This video shows the scrollview handling 500 results in state on my Pixel 7 Pro.  
+
+
+
+https://github.com/jehillert/7-eleven-code-challenge/assets/25601296/b56ce8a1-1f49-40c7-b1e6-1070525a1641
 
 
 

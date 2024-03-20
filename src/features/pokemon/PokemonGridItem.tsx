@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { Incrementer } from '../../components/IncrementButton';
+import { Incrementer } from '../../components';
 import { selectPokemonById, useAppSelector } from '../../store';
 
 const GridItemView = styled.View`

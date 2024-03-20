@@ -36,19 +36,26 @@ const selectPokemonByIds = (ids: string[]) =>
     return ids.map(id => selectEntities(pokemonState)[id]);
   });
 
-const selectPokemonCartList = createSelector(selectPokemon, pokemon => {
-  return pokemon.filter((p, currentIndex) => p.cartCount > 0);
+const selectCartItems = createSelector(selectPokemon, pokemon => {
+  return pokemon.filter(p => p.cartCount > 0);
+});
+
+const selectCartIds = createSelector(selectPokemon, pokemon => {
+  return pokemon
+    .filter((p, currentIndex) => p.cartCount > 0)
+    .map(cartItem => cartItem.id);
 });
 
 export {
   getPokemonState,
+  selectCartIds,
+  selectCartItems,
   selectIsLoading,
   selectIsPokemon,
   selectLoading,
   selectPokemon,
   selectPokemonById,
   selectPokemonByIds,
-  selectPokemonCartList,
   selectPokemonDict,
   selectPokemonIds,
 };

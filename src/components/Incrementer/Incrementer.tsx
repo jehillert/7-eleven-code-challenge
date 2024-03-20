@@ -1,14 +1,9 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
-import {
-  decrementCart,
-  incrementCart,
-  selectPokemonById,
-  useAppDispatch,
-  useAppSelector,
-} from '../store';
-import { BaseIcon } from './BaseIcon';
+import { BaseIcon } from '..';
+import { selectPokemonById, useAppSelector } from '../../store';
+import { IconSize } from '../../theme';
+import { IncrementButton } from './IncrementButton';
 
 const ButtonGroupView = styled.View`
   flex-direction: row;
@@ -27,42 +22,13 @@ const CountText = styled.Text`
   text-align: center;
 `;
 
-type IBProps = {
-  id: string;
-  variant: '+' | '-';
-};
-
 type IProps = {
   id: string;
   position: 'beginning' | 'middle' | 'end';
+  size?: IconSize;
 };
 
-const IncrementButton = ({ id, variant }: IBProps) => {
-  const { colors } = useTheme();
-  const dispatch = useAppDispatch();
-  const handlePress = () =>
-    dispatch(variant === '+' ? incrementCart(id) : decrementCart(id));
-
-  return (
-    <TouchableOpacity onPress={handlePress}>
-      {variant === '+' ? (
-        <BaseIcon
-          name="plus-box"
-          color={colors.incrementButton}
-          padding="0px"
-        />
-      ) : (
-        <BaseIcon
-          name="minus-box"
-          color={colors.incrementButton}
-          padding="0px"
-        />
-      )}
-    </TouchableOpacity>
-  );
-};
-
-const Incrementer = ({ id, position = 'middle' }: IProps) => {
+const Incrementer = ({ id, position = 'middle', size }: IProps) => {
   const { colors } = useTheme();
   const pokemon = useAppSelector(selectPokemonById(id));
   const { cartCount } = pokemon;
@@ -84,4 +50,4 @@ const Incrementer = ({ id, position = 'middle' }: IProps) => {
   );
 };
 
-export { IncrementButton, Incrementer };
+export { Incrementer };

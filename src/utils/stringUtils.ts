@@ -1,67 +1,3 @@
-const isLetter = (c: string) => c.toLowerCase() !== c.toUpperCase();
-
-const countWords = (str: string) => {
-  if (str === null || str.length === 0) return 0;
-  let wordCount = 0;
-  let isWord = false;
-  let endOfLine = str.length - 1;
-  let ch = str.split('');
-
-  for (let i = 0; i < ch.length; i++) {
-    if (isLetter(ch[i]) && i !== endOfLine) isWord = true;
-    else if (!isLetter(ch[i]) && isWord) {
-      wordCount++;
-      isWord = false;
-    } else if (isLetter(ch[i]) && i === endOfLine) wordCount++;
-  }
-
-  return wordCount;
-};
-
-const isNotAlphaNum = (str: string) => /[^a-z0-9]/gi.test(str[str.length - 1]);
-
-/**
- * @method toSnakeCase
- * @param {string} inputString Text string to convert to title case.
- * @description Converts to snake case (i.e., 'aA' and 'a_a' ==> 'a_b')
- * @example
- * const string1 = `havnt Seen nothing`;
- * const string2 = `@%^SeenNothi**ng`;
- * const string3 = `aCamel'sCaseIsAHardOneToMake`;
- *
- * example.log(toSnakeCase(string1));
- * example.log(toSnakeCase(string2));
- * example.log(toSnakeCase(string3));
- */
-const toSnakeCase = (inputString: string) =>
-  inputString
-    .trim()
-    .replace(/\s/g, '_')
-    .replace(/([a-z])([A-Z])/g, '$1_$2')
-    .replace(/[^a-zA-Z0-9_ :]/g, '')
-    .toLowerCase();
-
-/**
- * @method toSnakeCase
- * @param {string} inputString Text string to convert to title case.
- * @description Converts to snake case (i.e., 'aA' and 'a_a' ==> 'a_b')
- * @example
- * const string1 = `havnt Seen nothing`;
- * const string2 = `@%^SeenNothi**ng`;
- * const string3 = `aCamel'sCaseIsAHardOneToMake`;
- *
- * example.log(toSnakeCase(string1));
- * example.log(toSnakeCase(string2));
- * example.log(toSnakeCase(string3));
- */
-const toKebabCase = (inputString: string) =>
-  inputString
-    .trim()
-    .replace(/\s/g, '-')
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[^a-zA-Z0-9\- :]/g, '')
-    .toLowerCase();
-
 /**
  * @method toTitleCase
  * @param {string} inputString Text string to convert to title case.
@@ -87,4 +23,4 @@ const toTitleCase = (inputString: string) =>
       return t.charAt(0).toUpperCase() + t.substring(1).toLowerCase();
     });
 
-export { countWords, isNotAlphaNum, toKebabCase, toSnakeCase, toTitleCase };
+export { toTitleCase };

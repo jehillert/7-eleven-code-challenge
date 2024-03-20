@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { selectPokemon, useAppSelector } from '../../store';
+import { selectCartIds, selectCartItems, useAppSelector } from '../../store';
 import { AppScreenProp } from '../navigation/navigationTypes';
-import PokemonGridItem from './PokemonGridItem';
+import CartRow from './CartRow';
 
 const GridContainer = styled.View`
   justify-content: center;
@@ -15,17 +15,17 @@ const GridContainer = styled.View`
   padding: 8px 0px;
 `;
 
-const PokemonScreen = (props: AppScreenProp) => {
-  const pokemon = useAppSelector(selectPokemon);
-  const gridContent = pokemon.map(({ id }) => (
-    <PokemonGridItem key={id} pokemonId={id} />
-  ));
+const CartScreen = (props: AppScreenProp) => {
+  const cartItems = useAppSelector(selectCartItems);
+  const cartIds = useAppSelector(selectCartIds);
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <GridContainer>{gridContent}</GridContainer>
+      {cartItems.map(id => {
+        return <CartRow entityId />;
+      })}
     </ScrollView>
   );
 };
 
-export default PokemonScreen;
+export default CartScreen;

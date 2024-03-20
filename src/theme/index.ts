@@ -1,4 +1,4 @@
-export { default as theme, typography } from './theme';
+export * from './shadow-styles';
+export { default as theme } from './theme';
 export * from './typography-css';
 export * from './typography-obj';
-export * from './shadow-styles';

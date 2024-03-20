@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { isIos } from '../constants';
 
 const shadowObj = StyleSheet.create({
-  fabIos: {
+  ios1: {
     shadowColor: '#000000',
     shadowOffset: {
       width: 5,
@@ -11,10 +11,10 @@ const shadowObj = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 3,
   },
-  fabAndroid: {
+  android1: {
     elevation: 5,
   },
-  modalIos: {
+  ios2: {
     shadowColor: '#101010',
     shadowOffset: {
       width: 4,
@@ -23,40 +23,40 @@ const shadowObj = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 12,
   },
-  modalAndroid: {
+  android2: {
     elevation: 12,
   },
 });
 
-const shadowCss = {
-  fab: `
+const shadowCss = [
+  `
   ${
     isIos
       ? `
-      shadow-color: ${shadowObj.fabIos.shadowColor};
+      shadow-color: ${shadowObj.ios1.shadowColor};
       shadow-offset: {
-        width: ${shadowObj.fabIos.shadowOffset.width}px;
-        height: ${shadowObj.fabIos.shadowOffset.height}px;
+        width: ${shadowObj.ios1.shadowOffset.width}px;
+        height: ${shadowObj.ios1.shadowOffset.height}px;
       };
-      shadow-opacity: ${shadowObj.fabIos.shadowOpacity};
-      shadow-radius: ${shadowObj.fabIos.shadowRadius}px;
+      shadow-opacity: ${shadowObj.ios1.shadowOpacity};
+      shadow-radius: ${shadowObj.ios1.shadowRadius}px;
     `
-      : `elevation: ${shadowObj.fabAndroid.elevation};`
+      : `elevation: ${shadowObj.android1.elevation};`
   }`,
-  modal: `
+  `
   ${
     isIos
       ? `
-      shadow-color: ${shadowObj.modalIos.shadowColor};
+      shadow-color: ${shadowObj.ios2.shadowColor};
       shadow-offset: {
-        width: ${shadowObj.modalIos.shadowOffset.width}px;
-        height: ${shadowObj.modalIos.shadowOffset.height}px;
+        width: ${shadowObj.ios2.shadowOffset.width}px;
+        height: ${shadowObj.ios2.shadowOffset.height}px;
       };
-      shadow-opacity: ${shadowObj.modalIos.shadowOpacity};
-      shadow-radius: ${shadowObj.modalIos.shadowRadius}px;
+      shadow-opacity: ${shadowObj.ios2.shadowOpacity};
+      shadow-radius: ${shadowObj.ios2.shadowRadius}px;
     `
-      : `elevation: ${shadowObj.modalAndroid.elevation};`
+      : `elevation: ${shadowObj.android2.elevation};`
   }`,
-};
+];
 
 export { shadowCss, shadowObj };

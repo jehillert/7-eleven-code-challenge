@@ -12,9 +12,13 @@ export type PokemonListResponse = Promise<{
   results: PokemonListItem[];
 }>;
 
-export type PokemonEntity = {
+export type PokemonBaseEntity = {
   name: string;
   url: string;
   imageUrl?: string;
   error?: string;
+};
+
+export type PokemonEntity = Required<PokemonBaseEntity> & {
+  id: string;
 };

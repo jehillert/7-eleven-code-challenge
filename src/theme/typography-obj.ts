@@ -8,7 +8,7 @@ const fontWeight: Record<string, TextStyle['fontWeight']> = {
   bold: '700',
 };
 
-const baseTypography: TextStyle = {
+const typographyBase: TextStyle = {
   fontFamily: 'Roboto-Regular',
   fontWeight: fontWeight.medium,
   textAlignVertical: 'center',
@@ -17,110 +17,110 @@ const baseTypography: TextStyle = {
 
 const typographyObj = {
   displayLarge: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 64,
     fontSize: 57,
   },
   displayMedium: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 52,
     fontSize: 45,
   },
   displaySmall: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 44,
     fontSize: 36,
   },
   headlineLarge: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 40,
     fontSize: 32,
   },
   headlineMedium: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 36,
     fontSize: 28,
   },
   headlineSmall: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 32,
     fontSize: 24,
   },
   titleLarge: {
-    ...baseTypography,
+    ...typographyBase,
     lineHeight: 28,
     fontSize: 22,
   },
   titleMedium: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.15,
     fontWeight: fontWeight.medium,
     lineHeight: 24,
     fontSize: 16,
   },
   titleSmall: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.1,
     fontWeight: fontWeight.medium,
     lineHeight: 20,
     fontSize: 14,
   },
   titleExSmall: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.05,
     fontWeight: fontWeight.medium,
     lineHeight: 16,
     fontSize: 12,
   },
   labelLarge: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.1,
     fontWeight: fontWeight.medium,
     lineHeight: 20,
     fontSize: 14,
   },
   labelMedium: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.5,
     fontWeight: fontWeight.medium,
     lineHeight: 16,
     fontSize: 12,
   },
   labelSmall: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.5,
     fontWeight: fontWeight.medium,
     lineHeight: 16,
     fontSize: 11,
   },
   bodyLarge: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.15,
     lineHeight: 24,
     fontSize: 16,
   },
   bodyMedium: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.25,
     lineHeight: 20,
     fontSize: 14,
   },
   bodySmall: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.4,
     lineHeight: 16,
     fontSize: 12,
     fontWeight: fontWeight.light,
   },
   bodyExSmall: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.4,
     lineHeight: 13,
     fontSize: 10,
     fontWeight: fontWeight.light,
   },
   badge: {
-    ...baseTypography,
+    ...typographyBase,
     letterSpacing: 0.5,
     fontWeight: fontWeight.bold,
     lineHeight: 13.2,
@@ -128,4 +128,4 @@ const typographyObj = {
   },
 };
 
-export { baseTypography, fontWeight, typographyObj };
+export { fontWeight, typographyBase, typographyObj };

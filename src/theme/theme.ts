@@ -1,8 +1,9 @@
 import { StyleSheet, TextStyle } from 'react-native';
 import { DefaultTheme } from 'styled-components/native';
-import { baseTypography, typographyObj } from '.';
+import { typographyBase, typographyObj } from '.';
 import { staticDimensions } from '../constants';
 import { shadowCss } from './shadow-styles';
+import typographyCss from './typography-css';
 
 type Colors = typeof lightColors;
 
@@ -32,12 +33,24 @@ const spacing = {
   listGap: 3 * StyleSheet.hairlineWidth,
 };
 
+const commonColors = {
+  backdrop: '#000000ac',
+};
+
 const lightColors = {
-  backgroundColor: '#d1d1d1',
+  ...commonColors,
+  gridItemBackground: '#9e9d9d',
+  background: '#d1d1d1',
+  statusBar: '#d1d1d1',
+  onPrimary: '#8a8a88',
 };
 
 const darkColors: Colors = {
-  backgroundColor: '#434343',
+  ...commonColors,
+  gridItemBackground: '#121111',
+  background: '#434343',
+  statusBar: '#434343',
+  onPrimary: '#ffffff',
 };
 
 const absoluteFill = `
@@ -62,9 +75,10 @@ const restOfTheme = {
   dimensions,
   fontWeight,
   shadow: shadowCss,
-  baseTypography: baseTypography,
   spacing,
-  typography: typographyObj,
+  typographyBase,
+  typographyObj,
+  typography: typographyCss,
 };
 
 const lightTheme = {

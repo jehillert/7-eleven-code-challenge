@@ -8,7 +8,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../store';
-import BaseIcon from './BaseIcon';
+import { BaseIcon } from './BaseIcon';
 
 const ButtonGroupView = styled.View`
   flex-direction: row;

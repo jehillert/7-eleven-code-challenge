@@ -89,4 +89,4 @@ const BaseIcon = ({
 
 export type { Props as BaseIconProps };
 
-export default BaseIcon;
+export { BaseIcon };

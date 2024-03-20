@@ -19,7 +19,10 @@ type RootStackParamList = {
 
 type RootStackParamValue = UnionOfObjPropTypes<RootStackParamList>;
 
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, Screen.HOME>;
+type PokemonScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  Screen.POKEMON
+>;
 
 type CartScreenProps = NativeStackScreenProps<RootStackParamList, Screen.CART>;
 
@@ -50,7 +53,7 @@ export { Screen };
 export type {
   AppScreenProp,
   CartScreenProps,
-  HomeScreenProps,
+  PokemonScreenProps,
   RootNavigationProp,
   RootRouteProp,
   RootStackParamList,

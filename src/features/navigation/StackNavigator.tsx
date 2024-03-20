@@ -1,10 +1,21 @@
+import { RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import styled, { useTheme } from 'styled-components/native';
-import { backButton } from '../../components';
+import { curriedBackButton } from '../../components';
 import { toTitleCase } from '../../utils';
 import PokemonScreen from '../pokemon/PokemonScreen';
-import { RootStackParamList, Screen } from './navigationTypes';
+import { curriedPokemonScreenButtons } from './PokemonScreenButtons';
+import {
+  PokemonScreenProps,
+  RootStackParamList,
+  Screen,
+} from './navigationTypes';
+
+type Props = {
+  route: RouteProp<RootStackParamList, keyof RootStackParamList>;
+  navigation: any;
+};
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,22 +43,26 @@ const StackNavigator = () => {
           presentation: 'card',
         }}>
         <Stack.Screen
-          name={'Pokemon'}
+          name={Screen.POKEMON}
           component={PokemonScreen}
-          options={props => ({
-            headerBackVisible: false,
-            // headerLeft: backButton({
-            //   ...props,
-            //   title: toTitleCase(Screen.POKEMON),
-            // }),
+          options={(props: PokemonScreenProps) => ({
+            headerTitleAlign: 'center',
+            headerShadowVisible: false,
+            title: 'POKEMON!',
+            headerTitleStyle: {
+              color: colors.text,
+              fontSize: 24,
+            },
+            headerRight: curriedPokemonScreenButtons(props),
           })}
         />
+
         <Stack.Screen
           name={'Cart'}
           component={() => <></>}
           options={props => ({
             headerBackVisible: false,
-            headerLeft: backButton({
+            headerLeft: curriedBackButton({
               ...props,
               title: toTitleCase(Screen.CART),
             }),

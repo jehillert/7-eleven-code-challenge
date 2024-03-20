@@ -4,7 +4,7 @@ import React from 'react';
 import { ColorValue, PressableProps, StyleProp, ViewStyle } from 'react-native';
 import { styled, useTheme } from 'styled-components/native';
 import { toTitleCase } from '../utils';
-import BaseIcon from './BaseIcon';
+import { BaseIcon } from './BaseIcon';
 
 const HeaderContainer = styled.View`
   flex-direction: row;
@@ -79,6 +79,6 @@ const BackButton = ({
   );
 };
 
-const backButton = (props: Props) => () => <BackButton {...props} />;
+const curriedBackButton = (props: Props) => () => <BackButton {...props} />;
 
-export { BackButton, backButton };
+export { BackButton, curriedBackButton };

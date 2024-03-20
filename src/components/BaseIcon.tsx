@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextStyle } from 'react-native';
-import Animated from 'react-native-reanimated';
 import BaseMatComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BaseMaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styled, { useTheme } from 'styled-components/native';
@@ -11,19 +10,6 @@ type Spacing = {
   $padding?: string;
   $margin?: string;
 };
-
-const BaseAnimMatComIcon = Animated.createAnimatedComponent(BaseMatComIcon);
-const BaseAnimMaterialIcon = Animated.createAnimatedComponent(BaseMaterialIcon);
-
-const AnimatedMatComIcon = styled(BaseAnimMatComIcon)<Spacing>`
-  ${({ $margin }) => ($margin ? `margin: ${$margin};` : ``)}
-  padding: ${({ $padding }) => ($padding ? `${$padding};` : `${6}px`)};
-`;
-
-const AnimatedMaterialIcon = styled(BaseAnimMaterialIcon)<Spacing>`
-  ${({ $margin }) => ($margin ? `margin: ${$margin};` : ``)}
-  padding: ${({ $padding }) => ($padding ? `${$padding};` : `${6}px`)};
-`;
 
 const MatComIcon = styled(BaseMatComIcon)<Spacing>`
   ${({ $margin }) => ($margin ? `margin: ${$margin};` : ``)}
@@ -72,17 +58,7 @@ const BaseIcon = ({
     ? color
     : colors.textSecondary;
 
-  const matComIcon = animatedProps ? (
-    <AnimatedMatComIcon
-      name={name}
-      size={size}
-      color={iconColor}
-      $padding={padding}
-      $margin={margin}
-      style={[style, animatedProps]}
-      {...rest}
-    />
-  ) : (
+  const matComIcon = (
     <MatComIcon
       name={name}
       size={size}
@@ -95,17 +71,7 @@ const BaseIcon = ({
     />
   );
 
-  const materialIcon = animatedProps ? (
-    <AnimatedMaterialIcon
-      name={name}
-      size={size}
-      color={iconColor}
-      $padding={padding}
-      $margin={margin}
-      style={[style, animatedProps]}
-      {...rest}
-    />
-  ) : (
+  const materialIcon = (
     <MaterialIcon
       name={name}
       size={size}

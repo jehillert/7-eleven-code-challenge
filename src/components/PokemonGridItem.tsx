@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { selectPokemonById, useAppSelector } from '../store';
-import { IncrementButton } from './IncrementButton';
+import { Incrementer } from './IncrementButton';
 
 const ButtonGroupView = styled.View`
   flex-direction: row;
@@ -43,10 +43,7 @@ const PokemonGridItem = ({ pokemonId }: Props) => {
         onError={err => console.log(err)}
       />
       <PokemonNameText>{name}</PokemonNameText>
-      <ButtonGroupView>
-        <IncrementButton id={pokemonId} variant="+" />
-        <IncrementButton id={pokemonId} variant="-" />
-      </ButtonGroupView>
+      <Incrementer id={pokemonId} position="middle" />
     </GridItemView>
   );
 };

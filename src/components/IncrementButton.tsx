@@ -1,7 +1,14 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
-import { decrementCart, incrementCart, useAppDispatch } from '../store';
-import { pressableColorCallback } from '../utils';
+import {
+  decrementCart,
+  incrementCart,
+  selectPokemonById,
+  useAppDispatch,
+  useAppSelector,
+} from '../store';
+import BaseIcon from './BaseIcon';
 
 const ButtonGroupView = styled.View`
   flex-direction: row;
@@ -11,16 +18,12 @@ const ButtonGroupView = styled.View`
   margin: 2px;
 `;
 
-const ButtonPressable = styled.Pressable`
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  aspect-ratio: 1;
-`;
+const CountContainer = styled.View``;
 
-const PlusMinusText = styled.Text`
-  ${({ theme }) => theme.typography.titleMedium};
-  line-height: 18px;
+const CountText = styled.Text`
+  ${({ theme }) => theme.absoluteFill};
+  ${({ theme }) => theme.typography.badge};
+  color: ${({ theme }) => theme.colors.black};
   text-align: center;
 `;
 
@@ -31,7 +34,7 @@ type IBProps = {
 
 type IProps = {
   id: string;
-  quantityBoxPosition: 'beginning' | 'middle' | 'end';
+  position: 'beginning' | 'middle' | 'end';
 };
 
 const IncrementButton = ({ id, variant }: IBProps) => {
@@ -41,21 +44,44 @@ const IncrementButton = ({ id, variant }: IBProps) => {
     dispatch(variant === '+' ? incrementCart(id) : decrementCart(id));
 
   return (
-    <ButtonPressable
-      onPress={handlePress}
-      style={pressableColorCallback('transparent', colors.incrementButton)}>
-      <PlusMinusText>{variant}</PlusMinusText>
-    </ButtonPressable>
+    <TouchableOpacity onPress={handlePress}>
+      {variant === '+' ? (
+        <BaseIcon
+          name="plus-box"
+          color={colors.incrementButton}
+          padding="0px"
+        />
+      ) : (
+        <BaseIcon
+          name="minus-box"
+          color={colors.incrementButton}
+          padding="0px"
+        />
+      )}
+    </TouchableOpacity>
   );
 };
 
-const Incrementer = ({ id, quantityBoxPosition = 'middle' }: IProps) => {
+const Incrementer = ({ id, position = 'middle' }: IProps) => {
+  const { colors } = useTheme();
+  const pokemon = useAppSelector(selectPokemonById(id));
+  const { cartCount } = pokemon;
+  const CountBox = (
+    <CountContainer>
+      <BaseIcon name="checkbox-blank" color={colors.white} padding="0px" />
+      <CountText>{cartCount}</CountText>
+    </CountContainer>
+  );
+
   return (
     <ButtonGroupView>
+      {position === 'beginning' && CountBox}
       <IncrementButton id={id} variant="+" />
+      {position === 'middle' && CountBox}
       <IncrementButton id={id} variant="-" />
+      {position === 'end' && CountBox}
     </ButtonGroupView>
   );
 };
 
-export { IncrementButton };
+export { IncrementButton, Incrementer };

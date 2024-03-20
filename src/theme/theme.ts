@@ -33,6 +33,9 @@ const spacing = {
 
 const commonColors = {
   backdrop: '#000000ac',
+  white: '#ffffff',
+  black: '#000000',
+  transparent: '#ffffff00',
 };
 
 const lightColors = {

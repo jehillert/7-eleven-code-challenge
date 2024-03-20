@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, StyleProp, View, ViewStyle } from 'react-native';
 import { SkypeIndicator, SkypeIndicatorProps } from 'react-native-indicators';
 import styled, { useTheme } from 'styled-components/native';
-import { selectLoading, useAppSelector } from '../store';
+import { selectIsLoading, useAppSelector } from '../store';
 
 const LocalizedWrapper = styled(View)`
   align-items: center;
@@ -42,8 +42,8 @@ const LoadingOverlay = ({
   style,
 }: Props) => {
   const { colors } = useTheme();
-  const loadingRedux = useAppSelector(selectLoading);
-  const isLoading = isLoadingProp ? isLoadingProp : loadingRedux === 'pending';
+  const isLoadingRedux = useAppSelector(selectIsLoading);
+  const isLoading = isLoadingProp ? isLoadingProp : isLoadingRedux;
   const _indicatorProps: NonNullable<SkypeIndicatorProps> = {
     ...indicatorProps,
     color: colors.onPrimary,

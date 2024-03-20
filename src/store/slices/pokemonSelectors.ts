@@ -10,7 +10,9 @@ const {
   selectIds: selectPokemonIds,
 } = pokemonAdapter.getSelectors<RootState>(state => state.pokemon);
 
-const { selectById, selectEntities } = pokemonAdapter.getSelectors();
+const { selectById, selectEntities, selectIds } = pokemonAdapter.getSelectors();
+
+const selectIsPokemon = createSelector(selectIds, ids => !!ids?.length);
 
 /**
  * @example
@@ -31,6 +33,7 @@ const selectPokemonByIds = (ids: string[]) =>
 
 export {
   getPokemonState,
+  selectIsPokemon,
   selectPokemon,
   selectPokemonById,
   selectPokemonByIds,

@@ -3,13 +3,14 @@ import { Button, StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeProvider, styled } from 'styled-components/native';
+import { LoadingOverlay } from './components';
 import PokemonGrid from './components/PokemonGrid';
 import {
   fetchPokemonAsyncThunk,
+  selectIsPokemon,
   useAppDispatch,
   useAppSelector,
 } from './store';
-import { selectIsLoading } from './store/slices/globalUiSlice';
 import { useAppTheme } from './theme/useAppTheme';
 
 const AppSafeArea = styled(SafeAreaView)`
@@ -20,10 +21,10 @@ const AppSafeArea = styled(SafeAreaView)`
 let AppCore = () => {
   const dispatch = useAppDispatch();
   const { appTheme, barStyle } = useAppTheme();
-  const isLoading = useAppSelector(selectIsLoading);
+  const isPokemon = useAppSelector(selectIsPokemon);
 
   useEffect(() => {
-    dispatch(fetchPokemonAsyncThunk(10));
+    !isPokemon && dispatch(fetchPokemonAsyncThunk(10));
   }, []);
 
   return (
@@ -33,6 +34,7 @@ let AppCore = () => {
           barStyle={barStyle}
           backgroundColor={appTheme.colors.statusBar}
         />
+        <LoadingOverlay />
         <Button
           title="Fetch Pokemon"
           onPress={() => dispatch(fetchPokemonAsyncThunk(10))}

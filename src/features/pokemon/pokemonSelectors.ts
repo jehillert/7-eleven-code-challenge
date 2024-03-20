@@ -46,6 +46,17 @@ const selectCartIds = createSelector(selectPokemon, pokemon => {
     .map(cartItem => cartItem.id);
 });
 
+const selectTotalCost = createSelector(
+  selectPokemon,
+  pokemon =>
+    pokemon.reduce((accum, { cartCount, data }, index) => {
+      if (data !== null) {
+        return accum + data.weight * cartCount;
+      }
+      return accum;
+    }, 0) ?? 0,
+);
+
 export {
   getPokemonState,
   selectCartIds,
@@ -58,4 +69,5 @@ export {
   selectPokemonByIds,
   selectPokemonDict,
   selectPokemonIds,
+  selectTotalCost,
 };

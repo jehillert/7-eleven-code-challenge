@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Incrementer } from '../../components';
 import { selectPokemonById, useAppSelector } from '../../store';
-import { getIconSize } from '../../theme';
 import { toTitleCase } from '../../utils';
 
 const Row = styled.View`
@@ -14,10 +13,17 @@ const Row = styled.View`
   ${({ theme }) => theme.shadow[0]};
 `;
 
-const LeftColumn = styled.View`
+const LeftSide = styled.View`
   align-items: center;
   flex-direction: row;
   column-gap: 8px;
+`;
+
+const RightSide = styled.View``;
+
+const TextColumn = styled.View`
+  row-gap: 6px;
+  padding-vertical: 8px;
 `;
 
 const PokemonIcon = styled.Image<{ size: number }>`
@@ -30,32 +36,46 @@ const PokemonNameText = styled.Text`
   ${({ theme }) => theme.typography.titleSmall}
 `;
 
+const PokemonCostText = styled.Text`
+  ${({ theme }) => theme.typography.bodySmall}
+`;
+
 type Props = {
   pokemonId: string;
 };
 
 const CartRow = ({ pokemonId }: Props) => {
   const iconSize = 'medium-small';
-  const pokemonIconSize = getIconSize('large');
-  const { name, imageUrl } = useAppSelector(selectPokemonById(pokemonId));
+  const pokemonSize = 70;
+  const { name, imageUrl, cartCount, data } = useAppSelector(
+    selectPokemonById(pokemonId),
+  );
+  const weight = data?.weight ?? 0;
+  const cost = cartCount * weight;
+  const subTotal = `$${cost} x ${cartCount}`;
 
   return (
     <Row>
-      <LeftColumn>
+      <LeftSide>
         <PokemonIcon
-          size={pokemonIconSize}
+          size={pokemonSize}
           source={{ uri: imageUrl }}
           onError={err => console.log(err)}
         />
-        <PokemonNameText>{toTitleCase(name)}</PokemonNameText>
-      </LeftColumn>
-      <Incrementer
-        id={pokemonId}
-        countPosition="beginning"
-        size={iconSize}
-        showDelete
-        incButtonMargin="-5px"
-      />
+        <TextColumn>
+          <PokemonNameText>{toTitleCase(name)}</PokemonNameText>
+          <PokemonCostText>{subTotal}</PokemonCostText>
+        </TextColumn>
+      </LeftSide>
+      <RightSide>
+        <Incrementer
+          id={pokemonId}
+          countPosition="beginning"
+          size={iconSize}
+          showDelete
+          incButtonMargin="-5px"
+        />
+      </RightSide>
     </Row>
   );
 };

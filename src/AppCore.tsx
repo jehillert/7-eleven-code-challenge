@@ -24,7 +24,7 @@ let AppCore = () => {
   const isPokemon = useAppSelector(selectIsPokemon);
 
   useEffect(() => {
-    !isPokemon && dispatch(fetchPokemonAsyncThunk(100));
+    !isPokemon && dispatch(fetchPokemonAsyncThunk());
   }, []);
 
   return (

@@ -4,22 +4,29 @@ import { Incrementer } from '../../components';
 import { selectPokemonById, useAppSelector } from '../../store';
 
 const GridItemView = styled.View`
-  row-gap: 8px;
   width: ${({ theme }) => (theme.dimensions.screenWidth - 32) / 3}px;
   align-items: center;
-  padding: 16px 0px;
+  padding: 8px 0px 16px 0px;
   background-color: ${({ theme }) => theme.colors.background2};
   border-radius: ${({ theme }) => theme.rad(4)}px;
   ${({ theme }) => theme.shadow[0]};
 `;
 
+const Placeholder = styled.View`
+  height: 70px;
+  width: ${({ theme }) => (theme.dimensions.screenWidth - 32) / 3}px;
+  height: 1px;
+`;
+
 const PokemonIcon = styled.Image`
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
 `;
 
 const PokemonNameText = styled.Text`
   ${({ theme }) => theme.typography.titleSmall}
+  margin-bottom: 10px;
+  font-style: italic;
 `;
 
 type Props = {
@@ -35,6 +42,7 @@ const PokemonCard = ({ pokemonId }: Props) => {
         source={{ uri: imageUrl }}
         onError={err => console.log(err)}
       />
+
       <PokemonNameText>{name}</PokemonNameText>
       <Incrementer
         id={pokemonId}
@@ -46,4 +54,4 @@ const PokemonCard = ({ pokemonId }: Props) => {
   );
 };
 
-export default PokemonCard;
+export { Placeholder, PokemonCard };

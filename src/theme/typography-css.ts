@@ -67,13 +67,14 @@ const typographyCss = {
   `,
   bodyLarge: `
     letter-spacing: ${typographyObj.bodyLarge.letterSpacing}px;
-    font-size: ${typographyObj.bodyLarge.lineHeight}px;
-    fontSize: hScale(16),
+    line-height: ${typographyObj.bodyLarge.lineHeight}px;
+    font-size: ${typographyObj.bodyLarge.fontSize}px;
   `,
   bodyMedium: `
     letter-spacing: ${typographyObj.bodyMedium.letterSpacing}px;
-    font-size: ${typographyObj.bodyMedium.lineHeight}px;
-    fontSize: hScale(14),
+    line-height: ${typographyObj.bodyMedium.lineHeight}px;
+    font-size: ${typographyObj.bodyMedium.fontSize}px;
+    font-weight: ${typographyObj.titleSmall.fontWeight};
   `,
   bodySmall: `
     letter-spacing: ${typographyObj.bodySmall.letterSpacing}px;

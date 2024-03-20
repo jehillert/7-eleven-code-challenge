@@ -93,6 +93,7 @@ const fetchPokemonAsyncThunk = createAsyncThunk(
           ...pokemon,
           cartCount: 0,
           id: nanoid(),
+          data: isFulfilled ? result.value : null,
           imageUrl: isFulfilled ? result.value.sprites.front_default : '',
           error: !isFulfilled ? (result.reason as string) : '',
         };

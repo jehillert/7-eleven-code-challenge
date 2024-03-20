@@ -1,3 +1,5 @@
+import { PokeAPI } from 'pokeapi-types';
+
 export type PokemonLimit = number | undefined;
 
 export type PokemonListItem = {
@@ -14,9 +16,10 @@ export type PokemonListResponse = Promise<{
 
 export type PokemonBaseEntity = {
   name: string;
-  url: string;
+  data?: PokeAPI.Pokemon | null;
   imageUrl?: string;
   error?: string;
+  url: string;
 };
 
 export type PokemonEntity = Required<PokemonBaseEntity> & {

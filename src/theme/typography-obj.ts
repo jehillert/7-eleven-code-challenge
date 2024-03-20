@@ -101,6 +101,7 @@ const typographyObj = {
   },
   bodyMedium: {
     ...typographyBase,
+    fontWeight: fontWeight.light,
     letterSpacing: 0.25,
     lineHeight: 20,
     fontSize: 14,

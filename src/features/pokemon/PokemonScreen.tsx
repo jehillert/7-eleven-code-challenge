@@ -2,8 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { selectPokemon, useAppSelector } from '../../store';
-import { AppScreenProp } from '../navigation/navigationTypes';
-import PokemonCard from './PokemonCard';
+import { Placeholder, PokemonCard } from './PokemonCard';
 
 const GridContainer = styled.View`
   justify-content: center;
@@ -15,15 +14,21 @@ const GridContainer = styled.View`
   padding: 8px 0px;
 `;
 
-const PokemonScreen = (props: AppScreenProp) => {
+const PokemonScreen = () => {
   const pokemon = useAppSelector(selectPokemon);
   const gridContent = pokemon.map(({ id }) => (
     <PokemonCard key={id} pokemonId={id} />
   ));
+  const remainder = pokemon.length % 3;
+  const placeholderCount = remainder === 0 ? 0 : 3 - (pokemon.length % 3);
+
+  const placeholders = Array(placeholderCount)
+    .fill(null)
+    .map((_, index) => <Placeholder key={`placeholder-${index}`} />);
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <GridContainer>{gridContent}</GridContainer>
+      <GridContainer>{[...gridContent, ...placeholders]}</GridContainer>
     </ScrollView>
   );
 };

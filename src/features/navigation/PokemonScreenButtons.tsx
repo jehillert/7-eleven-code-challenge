@@ -27,12 +27,12 @@ const PokemonScreenButtons = ({ navigation }: PokemonScreenProps) => {
   return (
     <ButtonView>
       <TouchableOpacity onPress={handlePressTheme}>
-        <BaseIcon name="circle-half-full" color={colors.text} size="medium" />
+        <BaseIcon name="brightness-6" color={colors.text} size="medium" />
       </TouchableOpacity>
       <TouchableOpacity onPress={handlePressCart} disabled={cartDisabled}>
         <BaseIcon
           name="cart-outline"
-          color={cartDisabled ? colors.textDisabled : colors.text}
+          color={cartDisabled ? colors.textDisabled : colors.accent}
           size="medium"
         />
       </TouchableOpacity>

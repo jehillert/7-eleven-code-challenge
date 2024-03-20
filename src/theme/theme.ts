@@ -46,6 +46,7 @@ const commonColors = {
 
 const lightColors = {
   ...commonColors,
+  accent: '#379000',
   background1: '#ffffff',
   background2: '#838383',
   background3: '#696868',
@@ -63,6 +64,7 @@ const lightColors = {
 const darkColors: Colors = {
   ...commonColors,
   ...commonColors,
+  accent: '#ffea00',
   background1: '#000000',
   background2: '#2a2a2aff',
   background3: '#6a6969ff',

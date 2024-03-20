@@ -9,7 +9,7 @@ const GridContainer = styled.View`
   flex-direction: row;
   gap: 8px;
   flex-wrap: wrap;
-  width: ${({ theme }) => theme.dimensions.screenWidth};
+  width: ${({ theme }) => theme.dimensions.screenWidth}px;
   background-color: red;
   flex: 1;
   padding: 8px 0px;

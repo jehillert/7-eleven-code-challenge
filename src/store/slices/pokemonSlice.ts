@@ -8,15 +8,12 @@ import {
 import { api } from '../../api';
 import { PokemonBaseEntity, PokemonEntity, PokemonListItem } from '../../types';
 
-type LoadingState = 'idle' | 'pending' | 'succeeded' | 'failed';
-
 const pokemonAdapter = createEntityAdapter<PokemonEntity>({});
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState: pokemonAdapter.getInitialState({
     activePokemonId: '',
-    loading: 'idle' as LoadingState,
   }),
   reducers: {
     addManyPokemon: pokemonAdapter.addMany,
@@ -27,7 +24,6 @@ const pokemonSlice = createSlice({
   selectors: {
     selectActivePokemonId: state => state.activePokemonId,
     selectPokemon: state => state.entities,
-    selectLoading: state => state.loading,
   },
   extraReducers: builder => {
     builder.addCase(fetchPokemonAsyncThunk.fulfilled, (state, action) => {

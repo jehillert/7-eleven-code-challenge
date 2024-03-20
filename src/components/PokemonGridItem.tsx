@@ -3,14 +3,6 @@ import styled from 'styled-components/native';
 import { selectPokemonById, useAppSelector } from '../store';
 import { Incrementer } from './IncrementButton';
 
-const ButtonGroupView = styled.View`
-  flex-direction: row;
-  top: 0px;
-  right: 0px;
-  column-gap: 8px;
-  margin: 2px;
-`;
-
 const GridItemView = styled.View`
   row-gap: 8px;
   width: ${({ theme }) => (theme.dimensions.screenWidth - 32) / 3}px;

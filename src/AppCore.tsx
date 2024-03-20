@@ -4,7 +4,7 @@ import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeProvider, styled } from 'styled-components/native';
 import { LoadingOverlay } from './components';
-import PokemonGrid from './components/PokemonGrid';
+import PokemonGridView from './components/PokemonGridView';
 import {
   fetchPokemonAsyncThunk,
   selectIsPokemon,
@@ -24,7 +24,7 @@ let AppCore = () => {
   const isPokemon = useAppSelector(selectIsPokemon);
 
   useEffect(() => {
-    !isPokemon && dispatch(fetchPokemonAsyncThunk(10));
+    !isPokemon && dispatch(fetchPokemonAsyncThunk(100));
   }, []);
 
   return (
@@ -39,7 +39,7 @@ let AppCore = () => {
           title="Fetch Pokemon"
           onPress={() => dispatch(fetchPokemonAsyncThunk(10))}
         />
-        <PokemonGrid />
+        <PokemonGridView />
       </AppSafeArea>
     </ThemeProvider>
   );

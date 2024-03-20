@@ -7,8 +7,6 @@ import typographyCss from './typography-css';
 
 type Colors = typeof lightColors;
 
-type IconSize = 'small' | 'medium-small' | 'medium' | 'large';
-
 const animation = {
   opacityDelta: 0.3,
 };
@@ -39,20 +37,26 @@ const commonColors = {
 
 const lightColors = {
   ...commonColors,
-  gridItemBackground: '#9e9d9d',
   background: '#d1d1d1',
-  statusBar: '#d1d1d1',
-  onPrimary: '#8a8a88',
+  gridItemBackground: '#9e9d9d',
   incrementButton: '#454545',
+  onPrimary: '#8a8a88',
+  statusBar: '#d1d1d1',
+  text: '#1c1c1e',
+  textDisabled: '#757373',
+  textSecondary: '#929292',
 };
 
 const darkColors: Colors = {
   ...commonColors,
-  gridItemBackground: '#121111',
   background: '#434343',
-  statusBar: '#434343',
-  onPrimary: '#ffffff',
+  gridItemBackground: '#121111',
   incrementButton: '#747070',
+  onPrimary: '#ffffff',
+  statusBar: '#434343',
+  text: '#e5e5e7',
+  textDisabled: '#a8a7a7',
+  textSecondary: '#d6d6d6',
 };
 
 const absoluteFill = `
@@ -98,7 +102,7 @@ const theme = {
   dark: darkTheme,
 };
 
-export type { Colors, IconSize };
+export type { Colors };
 
 export { darkTheme, dimensions, lightTheme };
 

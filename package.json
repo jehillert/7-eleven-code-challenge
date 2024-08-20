@@ -62,7 +62,8 @@
     "scrcpy": "scrcpy",
     "scrcpy-tcpip": "scrcpy --tcpip",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "patch-package"
   },
   "version": "0.0.1"
 }

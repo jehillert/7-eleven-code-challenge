@@ -1,3 +1,4 @@
+import 'react-native-devsettings';
 import React from 'react';
 import { LogBox, UIManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

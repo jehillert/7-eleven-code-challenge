@@ -1,6 +1,6 @@
 import { StyleSheet, TextStyle } from 'react-native';
 import { DefaultTheme } from 'styled-components/native';
-import { typographyBase, typographyObj } from '.';
+import { typographyBase, typographyObj } from './typography-obj';
 import { staticDimensions } from '../constants';
 import { shadowCss } from './shadow-styles';
 import typographyCss from './typography-css';

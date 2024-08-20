@@ -22,7 +22,6 @@ let AppCore = () => {
   const dispatch = useAppDispatch();
   const { appTheme, barStyle } = useAppTheme();
   const isPokemon = useAppSelector(selectIsPokemon);
-  const s = useAppSelector(store.getState);
 
   useEffect(() => {
     !isPokemon && dispatch(fetchPokemonAsyncThunk());
